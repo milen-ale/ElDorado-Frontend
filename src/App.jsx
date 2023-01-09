@@ -1,11 +1,30 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import reactLogo from './assets/react.svg';
 import Example from './Example';
 import './App.css';
+import { bookCar } from './redux/Reservations/reservationsSlice';
+import api from './api/api';
 
 function App() {
-  const [count, setCount] = useState(0);
-
+  const [count] = useState(0);
+  const reservationObj = {
+    pickup_date: '2023-02-01',
+    return_date: '2023-02-12',
+    car_id: 1,
+  };
+  const user = {
+    email: 'abc@gmail.com',
+    password: '123456',
+  };
+  api.login(user);
+  const dispatch = useDispatch();
+  // const reservations = useSelector(carReservations);
+  // const status = useSelector(allStatus);
+  const handleBooking = () => {
+    console.log(reservationObj);
+    dispatch(bookCar(2, reservationObj));
+  };
   return (
     <>
       <div className="App">
@@ -19,7 +38,7 @@ function App() {
         </div>
         <h1 className="text-white bg-black text-4xl">Vite + React</h1>
         <div className="card">
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
+          <button type="button" onClick={handleBooking}>
             count is
             {' '}
             {count}

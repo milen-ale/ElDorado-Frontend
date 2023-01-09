@@ -4,10 +4,12 @@ import {
   configureStore,
 } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
+import reservationReducer from './Reservations/reservationsSlice';
 
 // root Reducer
 const rootReducer = combineReducers({
   // Add your reducers here
+  reservations: reservationReducer,
 });
 
 // Redux store
