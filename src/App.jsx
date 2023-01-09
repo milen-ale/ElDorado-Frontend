@@ -8,7 +8,7 @@ import api from './api/api';
 
 function App() {
   const [count] = useState(0);
-  const reservationObj = {
+  const reservation = {
     pickup_date: '2023-02-01',
     return_date: '2023-02-12',
     car_id: 1,
@@ -22,8 +22,11 @@ function App() {
   // const reservations = useSelector(carReservations);
   // const status = useSelector(allStatus);
   const handleBooking = () => {
-    console.log(reservationObj);
-    dispatch(bookCar(2, reservationObj));
+    const reservationObject = {
+      reservation,
+      user_id: 2,
+    };
+    dispatch(bookCar(reservationObject));
   };
   return (
     <>
