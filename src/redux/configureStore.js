@@ -4,10 +4,11 @@ import {
   configureStore,
 } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
+import authReducer from './Auth/authSlice';
 
 // root Reducer
 const rootReducer = combineReducers({
-  // Add your reducers here
+  auth: authReducer,
 });
 
 // Redux store
