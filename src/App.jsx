@@ -11,11 +11,11 @@ function App() {
   const reservation = {
     pickup_date: '2023-02-01',
     return_date: '2023-02-12',
-    car_id: 1,
+    car_id: 19,
   };
   const user = {
-    email: 'abc@gmail.com',
-    password: '123456',
+    email: 'obiwan@rebels.com',
+    password: 'obiwan',
   };
   api.login(user);
   const dispatch = useDispatch();
@@ -24,7 +24,7 @@ function App() {
   const handleBooking = () => {
     const reservationObject = {
       reservation,
-      user_id: 2,
+      user_id: 4,
     };
     dispatch(bookCar(reservationObject));
   };
