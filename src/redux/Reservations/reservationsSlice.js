@@ -8,11 +8,8 @@ const RESERVATIONS = 'RESERVATIONS';
 const initialState = {
 
   reservations: [],
-
   status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
-
   message: '',
-
   error: null,
 
 };
@@ -21,7 +18,6 @@ const initialState = {
 
 export const bookCar = createAsyncThunk(RESERVATIONS, async ({ user_id: id, reservation }) => {
   try {
-    // console.log(id, reservation);
     return await api.reserveCar(id, reservation);
   } catch (error) {
     return error.message;
@@ -32,42 +28,24 @@ export const bookCar = createAsyncThunk(RESERVATIONS, async ({ user_id: id, rese
 const reservationsSlice = createSlice({
 
   name: 'reservations',
-
   initialState,
-
   reducers: {},
-
   extraReducers: (builder) => {
     builder
-
       .addCase(bookCar.pending, (state) => ({
-
         ...state,
-
         status: 'loading',
-
       }))
-
       .addCase(bookCar.fulfilled, (state, action) => ({
-
         ...state,
-
         reservations: [...state.reservations, action.payload.data],
-
         message: action.payload.message,
-
         status: 'succeeded',
-
       }))
-
       .addCase(bookCar.rejected, (state, action) => ({
-
         ...state,
-
         status: 'failed',
-
         error: action.error.message,
-
       }));
   },
 

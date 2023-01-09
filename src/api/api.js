@@ -41,15 +41,14 @@ const api = {
     return data;
   },
   reserveCar: async (id, booking) => {
-    console.log(id, booking);
     const response = await fetch(`${baseURL}/users/${id}/reservations`, {
       ...postCarBookingOptions({ booking }),
     });
+
     const data = await response.json();
-
     console.log(data);
-  },
-
+    return data
+  }
 };
 
 export default api;
