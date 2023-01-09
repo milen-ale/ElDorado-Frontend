@@ -19,10 +19,10 @@ const initialState = {
 
 // Thunks
 
-export const bookCar = createAsyncThunk(RESERVATIONS, async (id, booking) => {
+export const bookCar = createAsyncThunk(RESERVATIONS, async ({ user_id: id, reservation }) => {
   try {
-    console.log('1s', booking);
-    return await api.reserveCar(id, booking);
+    // console.log(id, reservation);
+    return await api.reserveCar(id, reservation);
   } catch (error) {
     return error.message;
   }
