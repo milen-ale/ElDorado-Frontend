@@ -1,65 +1,100 @@
 import React, { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import logo from '../assets/logo.png';
-import back from '../assets/control.png';
-import home from '../assets/Home.png';
-import booking from '../assets/Booking.png';
-import reservation from '../assets/Reservation.png';
-import login from '../assets/Login.png';
+import { NavLink } from 'react-router-dom';
+import {
+  ChevronLeftIcon,
+  HomeIcon,
+  CreditCardIcon,
+  BookmarkIcon,
+  ArrowRightOnRectangleIcon,
+} from '@heroicons/react/24/outline';
+import RandomLuxLogo from './RandomLuxLogo';
+import whiteLogo from '../assets/logo-transparent-white.png';
 
 const NavBar = () => {
   const [open, setOpen] = useState(true);
   const menu = [
-    { name: 'Home', src: home, path: '/' },
-    { name: 'Booking', src: booking, path: '/booking' },
-    { name: 'Reservation', src: reservation, path: '/reservation' },
+    {
+      id: 1,
+      name: 'Home',
+      icon: <HomeIcon className="w-7" />,
+      path: '/',
+    },
+    {
+      id: 2,
+      name: 'Booking',
+      icon: <CreditCardIcon className="w-7" />,
+      path: '/booking',
+    },
+    {
+      id: 3,
+      name: 'Reservation',
+      icon: <BookmarkIcon className="w-7" />,
+      path: '/reservation',
+    },
   ];
-  const navigate = useNavigate();
-  const location = useLocation();
   return (
-    <div className="sidebar flex">
-      <div
-        className={`${
-          open ? 'w-72' : 'w-20'
-        } h-screen bg-gray-300 relative drop-shadow-xl duration-300`}
+    <div
+      className={`${
+        open ? 'w-72' : 'w-20'
+      } h-screen bg-black/90 relative drop-shadow-xl duration-300`}
+    >
+      <button
+        type="button"
+        onClick={() => setOpen(!open)}
+        className={`absolute flex justify-center items-center bg-amber-700 p-0 hover:border-black top-9 w-6 h-6 border rounded-full cursor-pointer -right-3 ${
+          !open && 'rotate-180'
+        }`}
       >
-        <img
-          src={back}
-          alt="back"
-          className={`absolute top-9 w-7 border-2 border-gray-300 rounded-full cursor-pointer -right-3 ${
-            !open && 'rotate-180'
-          }`}
-          onClick={() => setOpen(!open)}
-        />
+        <ChevronLeftIcon className="w-5 stroke-white" />
+      </button>
+
+      {open ? (
         <div>
-          <img src={logo} alt="logo" className="w-full h-full" />
+          <img
+            src={whiteLogo}
+            alt="sidebar-white-logo"
+            className="w-full h-full"
+          />
         </div>
-        <ul className="pt-6">
-          {menu.map((data, index) => (
-            <li
-              key={index}
-              className={`text-sm text-black flex items-center gap-x-4 cursor-pointer p-3 my-2 hover:bg-light-blue-50 hover:rounded-md ${
-                location.pathname === data.path && 'bg-light-blue-50 rounded-md'
-              }`}
-              onClick={() => navigate(data.path)}
+      ) : (
+        <RandomLuxLogo />
+      )}
+      <ul className="pt-6 flex flex-col justify-center">
+        {menu.map(({
+          id, name, icon, path,
+        }) => (
+          <li className="" key={id}>
+            <NavLink
+              end
+              to={path}
+              className={({ isActive }) => `${
+                isActive && 'bg-amber-600/90 rounded-md'
+              } flex gap-x-4 text-sm text-white items-center ${
+                !open
+                  && 'justify-center w-max p-1 mx-auto transition-[display] duration-100'
+              } cursor-pointer p-3 my-2 hover:bg-amber-600/90 hover:text-black hover:rounded-md`}
             >
-              <img src={data.src} alt="menu-icon" className="w-7" />
-              <span className={`${!open && 'hidden'}`}>{data.name}</span>
-            </li>
-          ))}
-          <li
-            className={`text-sm text-black flex items-center gap-x-4 cursor-pointer p-3 my-2 hover:bg-light-blue-300 rounded-md ${
-              location.pathname === '/login' && 'bg-light-blue-300 rounded-md'
-            }`}
-            onClick={() => navigate('/login')}
-          >
-            <img src={login} alt="menu-icon" className="w-7" />
-            <span className={`${!open && 'hidden'} origin-right duration-200`}>
-              Login
-            </span>
+              {icon}
+              <span className={`${!open && 'hidden'}`}>{name}</span>
+            </NavLink>
           </li>
-        </ul>
-      </div>
+        ))}
+        <li>
+          <NavLink
+            end
+            to="/login"
+            className={({ isActive }) => `${
+              isActive && 'bg-amber-600/90 rounded-md '
+            } flex gap-x-4 text-sm text-white items-center ${
+              !open
+                && 'justify-center w-max p-1 mx-auto transition-[display] duration-100'
+            } cursor-pointer p-3 my-2 hover:bg-amber-600/90 hover:text-black hover:rounded-md`}
+          >
+            <ArrowRightOnRectangleIcon className="w-7" />
+            <span className={`${!open && 'hidden'}`}>Login</span>
+          </NavLink>
+        </li>
+      </ul>
     </div>
   );
 };
