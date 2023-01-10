@@ -7,6 +7,7 @@ import {
 } from '@material-tailwind/react';
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import Loader from '../components/Loader';
 import { allCars, allStatus } from '../redux/Home/home';
 
@@ -14,6 +15,7 @@ const Home = () => {
   document.title = 'ElDorado | Home';
   const cars = useSelector(allCars);
   const status = useSelector(allStatus);
+  const navigate = useNavigate();
   return status === 'loading' ? (
     <Loader />
   ) : (
@@ -29,7 +31,11 @@ const Home = () => {
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-4 md:grid-cols-2 md:gap-4 lg:grid-cols-3 lg:gap-28 grid-">
         {cars.map((car) => (
-          <Card className="w-52 sm:w-52 md:w-60 lg:w-72 my-5" key={car.id}>
+          <Card
+            className="cursor-pointer  w-52 sm:w-52 md:w-60 lg:w-72 my-5"
+            key={car.id}
+            onClick={() => navigate(`/car-details/${car.id}`)}
+          >
             <CardHeader color="blue" className="relative h-56">
               <img
                 src={car.image}
