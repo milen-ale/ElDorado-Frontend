@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import {
   ChevronLeftIcon,
@@ -6,12 +6,22 @@ import {
   CreditCardIcon,
   BookmarkIcon,
   ArrowRightOnRectangleIcon,
+  UserIcon,
 } from '@heroicons/react/24/outline';
+import { useDispatch } from 'react-redux';
+import { useToken, useAuthUser } from '../redux/Auth/useAuthUser';
+import { signOut } from '../redux/Auth/authSlice';
+
 import RandomLuxLogo from './RandomLuxLogo';
 import whiteLogo from '../assets/logo-transparent-white.png';
 
 const NavBar = () => {
   const [open, setOpen] = useState(true);
+  const [authenticated, setAuthenticated] = useState(false);
+  const dispatch = useDispatch();
+  const currentUser = useAuthUser();
+
+  const isTokenSet = useToken();
   const menu = [
     {
       id: 1,
@@ -32,6 +42,16 @@ const NavBar = () => {
       path: '/reservation',
     },
   ];
+
+  const handleSignOut = () => {
+    dispatch(signOut());
+  };
+
+  useEffect(() => {
+    if (isTokenSet) setAuthenticated(true);
+    else setAuthenticated(false);
+  }, [isTokenSet]);
+
   return (
     <div
       className={`${
@@ -60,6 +80,20 @@ const NavBar = () => {
         <RandomLuxLogo />
       )}
       <ul className="pt-6 flex flex-col justify-center">
+        {authenticated && (
+          <span
+            className={`bg-white/90 rounded-sm'
+               flex gap-x-4 text-sm text-black items-center ${
+                 !open
+                 && 'justify-center w-max p-1 mx-auto transition-[display] duration-100'
+               } cursor-pointer p-3 my-2 text-black`}
+          >
+            <UserIcon className="w-7" />
+            <span className={`${!open && 'hidden'} text-black`}>
+              {currentUser.name}
+            </span>
+          </span>
+        )}
         {menu.map(({
           id, name, icon, path,
         }) => (
@@ -80,19 +114,35 @@ const NavBar = () => {
           </li>
         ))}
         <li>
-          <NavLink
-            end
-            to="/login"
-            className={({ isActive }) => `${
-              isActive && 'bg-amber-600/90 rounded-md '
-            } flex gap-x-4 text-sm text-white items-center ${
-              !open
-                && 'justify-center w-max p-1 mx-auto transition-[display] duration-100'
-            } cursor-pointer p-3 my-2 hover:bg-amber-600/90 hover:text-black hover:rounded-md`}
-          >
-            <ArrowRightOnRectangleIcon className="w-7" />
-            <span className={`${!open && 'hidden'}`}>Login</span>
-          </NavLink>
+          {authenticated ? (
+            <>
+              <button
+                type="button"
+                onClick={handleSignOut}
+                className={`group bg-transparent border-none rounded-md flex ${open && 'w-full'} gap-x-4 text-sm text-white items-center ${
+                  !open
+                  && 'justify-center w-max p-1 mx-auto transition-[display] duration-100'
+                } cursor-pointer p-3 my-2 hover:bg-amber-600/90 hover:text-black hover:rounded-md`}
+              >
+                <ArrowRightOnRectangleIcon className="w-7 rotate-180 group-hover:-translate-x-0.5 transition duration-300" />
+                <span className={`${!open && 'hidden'}`}>Logout</span>
+              </button>
+            </>
+          ) : (
+            <NavLink
+              end
+              to="/login"
+              className={({ isActive }) => `${
+                isActive && 'bg-amber-600/90 rounded-md '
+              } flex gap-x-4 text-sm text-white items-center ${
+                !open
+                  && 'justify-center w-max p-1 mx-auto transition-[display] duration-100'
+              } cursor-pointer p-3 my-2 hover:bg-amber-600/90 hover:text-black hover:rounded-md`}
+            >
+              <ArrowRightOnRectangleIcon className="w-7" />
+              <span className={`${!open && 'hidden'}`}>Login</span>
+            </NavLink>
+          )}
         </li>
       </ul>
     </div>

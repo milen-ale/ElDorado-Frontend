@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import {
   Card,
   CardHeader,
@@ -9,7 +10,8 @@ import {
   Input,
   Button,
 } from '@material-tailwind/react';
-import { authenticatedUser, signUp, allStatus } from '../redux/Auth/authSlice';
+import { authenticatedUser, signUp } from '../redux/Auth/authSlice';
+import { useToken } from '../redux/Auth/useAuthUser';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -18,11 +20,10 @@ const Register = () => {
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
 
   const currentUser = useSelector(authenticatedUser);
-  const status = useSelector(allStatus);
-  console.log(currentUser, status);
-
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
+
+  const navigate = useNavigate();
+  const isTokenSet = useToken();
 
   const handleChange = (e) => {
     const {
@@ -44,11 +45,15 @@ const Register = () => {
     dispatch(signUp(user));
   };
 
+  useEffect(() => {
+    if (isTokenSet) navigate('/');
+  }, [isTokenSet, currentUser]);
+
   return (
-    <Card className="w-96">
+    <Card className="w-96 mt-5 mx-auto bg-white/90 backdrop-blur-md">
       <CardHeader
         variant="gradient"
-        color="blue"
+        color="amber"
         className="mb-4 grid h-28 place-items-center"
       >
         <Typography variant="h3" color="white">
@@ -56,9 +61,22 @@ const Register = () => {
         </Typography>
       </CardHeader>
       <CardBody className="flex flex-col gap-4">
-        <Input onChange={handleChange} name="name" label="Name" size="lg" />
-        <Input onChange={handleChange} name="email" label="Email" size="lg" />
         <Input
+          color="amber"
+          onChange={handleChange}
+          name="name"
+          label="Name"
+          size="lg"
+        />
+        <Input
+          color="amber"
+          onChange={handleChange}
+          name="email"
+          label="Email"
+          size="lg"
+        />
+        <Input
+          color="amber"
           onChange={handleChange}
           type="password"
           name="password"
@@ -66,6 +84,7 @@ const Register = () => {
           size="lg"
         />
         <Input
+          color="amber"
           onChange={handleChange}
           type="password"
           name="passwordConfirmation"
@@ -74,7 +93,12 @@ const Register = () => {
         />
       </CardBody>
       <CardFooter className="pt-0">
-        <Button onClick={handleSignUp} variant="gradient" fullWidth>
+        <Button
+          color="amber"
+          onClick={handleSignUp}
+          variant="gradient"
+          fullWidth
+        >
           Sign Up
         </Button>
         <Typography variant="small" className="mt-6 flex justify-center">
@@ -83,8 +107,8 @@ const Register = () => {
             as="a"
             href="/login"
             variant="small"
-            color="blue"
-            className="ml-1 font-bold"
+            color="amber"
+            className="ml-1 font-bold hover:text-gray-600"
           >
             Sign in
           </Typography>

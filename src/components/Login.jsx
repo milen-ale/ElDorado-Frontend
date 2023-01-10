@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import {
   Card,
   CardHeader,
@@ -9,17 +10,17 @@ import {
   Input,
   Button,
 } from '@material-tailwind/react';
-import { authenticatedUser, signIn, allStatus } from '../redux/Auth/authSlice';
+import { authenticatedUser, signIn } from '../redux/Auth/authSlice';
+import { useToken } from '../redux/Auth/useAuthUser';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   const currentUser = useSelector(authenticatedUser);
-  const status = useSelector(allStatus);
-  console.log(currentUser, status);
+
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+  const isTokenSet = useToken();
 
   const handleChange = (e) => {
     const {
@@ -37,11 +38,15 @@ const Login = () => {
     dispatch(signIn(user));
   };
 
+  useEffect(() => {
+    if (isTokenSet) navigate('/');
+  }, [isTokenSet, currentUser]);
+
   return (
-    <Card className="w-96">
+    <Card className="mt-5 w-96 mx-auto bg-white/90 backdrop-blur-md">
       <CardHeader
         variant="gradient"
-        color="blue"
+        color="amber"
         className="mb-4 grid h-28 place-items-center"
       >
         <Typography variant="h3" color="white">
@@ -49,8 +54,15 @@ const Login = () => {
         </Typography>
       </CardHeader>
       <CardBody className="flex flex-col gap-4">
-        <Input onChange={handleChange} name="email" label="Email" size="lg" />
         <Input
+          color="amber"
+          onChange={handleChange}
+          name="email"
+          label="Email"
+          size="lg"
+        />
+        <Input
+          color="amber"
           type="password"
           onChange={handleChange}
           name="password"
@@ -59,7 +71,12 @@ const Login = () => {
         />
       </CardBody>
       <CardFooter className="pt-0">
-        <Button onClick={handleSignIn} variant="gradient" fullWidth>
+        <Button
+          color="amber"
+          onClick={handleSignIn}
+          variant="gradient"
+          fullWidth
+        >
           Sign In
         </Button>
         <Typography variant="small" className="mt-6 flex justify-center">
@@ -68,8 +85,8 @@ const Login = () => {
             as="a"
             href="/register"
             variant="small"
-            color="blue"
-            className="ml-1 font-bold"
+            color="amber"
+            className="ml-1 font-bold hover:text-gray-600"
           >
             Sign up
           </Typography>
