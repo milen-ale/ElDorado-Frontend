@@ -5,8 +5,8 @@ import NavBar from '../components/NavBar';
 import Home from '../pages/Home';
 import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
-import { getCars } from '../redux/Home/home';
 import CarDetails from '../pages/CarDetails';
+import { getCars } from '../redux/Home/home';
 
 const AppRouter = () => {
   const dispatch = useDispatch();
@@ -15,9 +15,9 @@ const AppRouter = () => {
   }, []);
 
   return (
-    <div className="flex">
+    <div className="flex w-full">
       <NavBar />
-      <div className="sm:p-2 md:p-3 flex-1">
+      <div className={`p-7 flex-1 h-screen overflow-y-scroll`}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="car-details/:id" element={<CarDetails />} />
