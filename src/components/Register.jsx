@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   Card,
   CardHeader,
@@ -9,15 +9,15 @@ import {
   Typography,
   Input,
   Button,
-} from '@material-tailwind/react';
-import { authenticatedUser, signUp } from '../redux/Auth/authSlice';
-import { useToken } from '../redux/Auth/useAuthUser';
+} from "@material-tailwind/react";
+import { authenticatedUser, signUp } from "../redux/Auth/authSlice";
+import { useToken } from "../redux/Auth/useAuthUser";
 
 const Register = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordConfirmation, setPasswordConfirmation] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirmation, setPasswordConfirmation] = useState("");
 
   const currentUser = useSelector(authenticatedUser);
   const dispatch = useDispatch();
@@ -29,10 +29,10 @@ const Register = () => {
     const {
       target: { name: input, value },
     } = e;
-    if (input === 'name') setName(value);
-    if (input === 'email') setEmail(value);
-    if (input === 'password') setPassword(value);
-    if (input === 'passwordConfirmation') setPasswordConfirmation(value);
+    if (input === "name") setName(value);
+    if (input === "email") setEmail(value);
+    if (input === "password") setPassword(value);
+    if (input === "passwordConfirmation") setPasswordConfirmation(value);
   };
 
   const handleSignUp = () => {
@@ -46,7 +46,7 @@ const Register = () => {
   };
 
   useEffect(() => {
-    if (isTokenSet) navigate('/');
+    if (isTokenSet) navigate("/");
   }, [isTokenSet, currentUser]);
 
   return (
@@ -103,15 +103,12 @@ const Register = () => {
         </Button>
         <Typography variant="small" className="mt-6 flex justify-center">
           Have have an account?
-          <Typography
-            as="a"
-            href="/login"
-            variant="small"
-            color="amber"
-            className="ml-1 font-bold hover:text-gray-600"
+          <NavLink
+            to="/login"
+            className="ml-1 font-bold hover:text-gray-600 text-amber-700"
           >
             Sign in
-          </Typography>
+          </NavLink>
         </Typography>
       </CardFooter>
     </Card>

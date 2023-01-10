@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   Card,
   CardHeader,
@@ -9,13 +9,13 @@ import {
   Typography,
   Input,
   Button,
-} from '@material-tailwind/react';
-import { authenticatedUser, signIn } from '../redux/Auth/authSlice';
-import { useToken } from '../redux/Auth/useAuthUser';
+} from "@material-tailwind/react";
+import { authenticatedUser, signIn } from "../redux/Auth/authSlice";
+import { useToken } from "../redux/Auth/useAuthUser";
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const currentUser = useSelector(authenticatedUser);
 
   const dispatch = useDispatch();
@@ -26,8 +26,8 @@ const Login = () => {
     const {
       target: { name: input, value },
     } = e;
-    if (input === 'email') setEmail(value);
-    if (input === 'password') setPassword(value);
+    if (input === "email") setEmail(value);
+    if (input === "password") setPassword(value);
   };
 
   const handleSignIn = () => {
@@ -39,60 +39,57 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (isTokenSet) navigate('/');
+    if (isTokenSet) navigate("/");
   }, [isTokenSet, currentUser]);
 
   return (
-    <Card className="mt-5 w-96 mx-auto bg-white/90 backdrop-blur-md">
-      <CardHeader
-        variant="gradient"
-        color="amber"
-        className="mb-4 grid h-28 place-items-center"
-      >
-        <Typography variant="h3" color="white">
-          Login
-        </Typography>
-      </CardHeader>
-      <CardBody className="flex flex-col gap-4">
-        <Input
-          color="amber"
-          onChange={handleChange}
-          name="email"
-          label="Email"
-          size="lg"
-        />
-        <Input
-          color="amber"
-          type="password"
-          onChange={handleChange}
-          name="password"
-          label="Password"
-          size="lg"
-        />
-      </CardBody>
-      <CardFooter className="pt-0">
-        <Button
-          color="amber"
-          onClick={handleSignIn}
+      <Card className="mt-5 w-96 mx-auto bg-white/90 backdrop-blur-md">
+        <CardHeader
           variant="gradient"
-          fullWidth
+          color="amber"
+          className="mb-4 grid h-28 place-items-center"
         >
-          Sign In
-        </Button>
-        <Typography variant="small" className="mt-6 flex justify-center">
-          Don&apos;t have an account?
-          <Typography
-            as="a"
-            href="/register"
-            variant="small"
-            color="amber"
-            className="ml-1 font-bold hover:text-gray-600"
-          >
-            Sign up
+          <Typography variant="h3" color="white">
+            Login
           </Typography>
-        </Typography>
-      </CardFooter>
-    </Card>
+        </CardHeader>
+        <CardBody className="flex flex-col gap-4">
+          <Input
+            color="amber"
+            onChange={handleChange}
+            name="email"
+            label="Email"
+            size="lg"
+          />
+          <Input
+            color="amber"
+            type="password"
+            onChange={handleChange}
+            name="password"
+            label="Password"
+            size="lg"
+          />
+        </CardBody>
+        <CardFooter className="pt-0">
+          <Button
+            color="amber"
+            onClick={handleSignIn}
+            variant="gradient"
+            fullWidth
+          >
+            Sign In
+          </Button>
+          <Typography variant="small" className="mt-6 flex justify-center">
+            Don&apos;t have an account?
+            <NavLink
+              to="/register"
+              className="ml-1 font-bold hover:text-gray-600 text-amber-700"
+            >
+              Sign up
+            </NavLink>
+          </Typography>
+        </CardFooter>
+      </Card>
   );
 };
 
