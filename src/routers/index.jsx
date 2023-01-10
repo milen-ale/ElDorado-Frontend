@@ -6,7 +6,7 @@ import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
 
 const AppRouter = () => (
-  <div className="flex">
+  <div className="flex w-screen">
     <NavBar />
     <div className="p-7 flex-1 h-screen">
       <Routes>

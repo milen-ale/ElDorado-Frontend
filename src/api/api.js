@@ -1,8 +1,8 @@
 const baseURL = 'http://localhost:3000/api/v1';
 
-const setAuthToken = ({ headers }) => {
-  localStorage.setItem('token', headers.get('Authorization'));
-};
+const setAuthToken = ({ headers }) => localStorage.setItem('token', headers.get('Authorization'));
+
+const unsetAuthToken = () => localStorage.removeItem('token');
 
 const loginOptions = (user) => ({
   method: 'POST',
@@ -44,7 +44,9 @@ const api = {
       ...loginOptions({ user }),
     });
 
-    setAuthToken(response);
+    const { status: code } = response;
+
+    if (code === 200) setAuthToken(response);
 
     const data = await response.json();
     return data;
@@ -54,8 +56,20 @@ const api = {
       ...logoutOptions(),
     });
 
+    const { status: code } = response;
+
+    if (code === 200) unsetAuthToken();
+
     const data = await response.json();
     return data;
+  },
+  fetchAuthUser: async () => {
+    const response = await fetch(`${baseURL}/users`, {
+      headers: { Authorization: localStorage.getItem('token') },
+    });
+
+    const currentUser = await response.json();
+    return currentUser;
   },
   fetchCars: async () => {
     const response = await fetch(`${baseURL}/cars`);
