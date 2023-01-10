@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import Home from '../pages/Home';
 import { getCars } from '../redux/Home/home';
+import CarDetails from '../pages/CarDetails';
 
 const AppRouter = () => {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ const AppRouter = () => {
       <div className="sm:p-2 md:p-3 flex-1">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="car-details/:id" element={<CarDetails />} />
           <Route
             path="/booking"
             element={<h1>Booking component will be here</h1>}
