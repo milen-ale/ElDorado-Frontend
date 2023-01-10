@@ -19,10 +19,9 @@ export const getCars = createAsyncThunk(SHOW_CARS, async () => {
     return error.message;
   }
 });
-
-export const getCar = createAsyncThunk(SHOW_CAR, async () => {
+export const getCar = createAsyncThunk(SHOW_CAR, async (id) => {
   try {
-    return await api.fetchCar();
+    return await api.fetchCar(id);
   } catch (error) {
     return error.message;
   }
