@@ -56,7 +56,7 @@ const NavBar = () => {
     <div
       className={`${
         open ? 'w-72' : 'w-20'
-      } h-screen bg-black/90 relative drop-shadow-xl duration-300`}
+      } bg-black/90 relative drop-shadow-xl duration-300`}
     >
       <button
         type="button"

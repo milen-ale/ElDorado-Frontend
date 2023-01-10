@@ -1,5 +1,4 @@
 import {
-  applyMiddleware,
   combineReducers,
   configureStore,
 } from '@reduxjs/toolkit';
@@ -17,8 +16,9 @@ const rootReducer = combineReducers({
 const store = configureStore(
   {
     reducer: rootReducer,
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
   },
-  applyMiddleware(logger),
+
 );
 
 export default store;
