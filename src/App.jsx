@@ -1,5 +1,6 @@
 import './App.css';
-import BookingPage from './pages/bookingPage/bookingPage';
+import BookingPage from './pages/BookingPage';
+import 'tw-elements';
 
 function App() {
   return (
