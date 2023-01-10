@@ -5,6 +5,7 @@ import api from '../../api/api';
 const LOGIN = 'LOGIN';
 const LOGOUT = 'LOGOUT';
 const REGISTER = 'REGISTER';
+const GET_AUTH_USER = 'GET_AUTH_USER';
 
 const initialState = {
   authenticatedUser: {},
@@ -30,9 +31,17 @@ export const signIn = createAsyncThunk(LOGIN, async (user) => {
   }
 });
 
-export const signOut = createAsyncThunk(LOGOUT, async (user) => {
+export const signOut = createAsyncThunk(LOGOUT, async () => {
   try {
-    return await api.logout(user);
+    return await api.logout();
+  } catch (error) {
+    return error.message;
+  }
+});
+
+export const getAuthenticatedUser = createAsyncThunk(GET_AUTH_USER, async () => {
+  try {
+    return await api.fetchAuthUser();
   } catch (error) {
     return error.message;
   }
@@ -86,6 +95,21 @@ const authSlice = createSlice({
         status: 'succeeded',
       }))
       .addCase(signOut.rejected, (state, action) => ({
+        ...state,
+        status: 'failed',
+        error: action.error.message,
+      }))
+      .addCase(getAuthenticatedUser.pending, (state) => ({
+        ...state,
+        status: 'loading',
+      }))
+      .addCase(getAuthenticatedUser.fulfilled, (state, action) => ({
+        ...state,
+        authenticatedUser: action.payload,
+        message: 'User is authenticated',
+        status: 'succeeded',
+      }))
+      .addCase(getAuthenticatedUser.rejected, (state, action) => ({
         ...state,
         status: 'failed',
         error: action.error.message,

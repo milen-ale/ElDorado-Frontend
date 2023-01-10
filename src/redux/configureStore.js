@@ -10,7 +10,7 @@ import carReducer from './Home/home';
 // root Reducer
 const rootReducer = combineReducers({
   auth: authReducer,
-  cars: carReducer
+  cars: carReducer,
 });
 
 // Redux store
