@@ -37,8 +37,6 @@ const Booking = () => {
       reservation,
       user_id: currentUser.id,
     };
-    console.log(carId);
-    console.log(reservationObject);
     dispatch(bookCar(reservationObject));
   };
   return (
