@@ -1,14 +1,16 @@
 import {
-  applyMiddleware,
   combineReducers,
   configureStore,
 } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
+import authReducer from './Auth/authSlice';
+import carReducer from './Home/home';
 import reservationReducer from './Reservations/reservationsSlice';
 
 // root Reducer
 const rootReducer = combineReducers({
-  // Add your reducers here
+  auth: authReducer,
+  cars: carReducer,
   reservations: reservationReducer,
 });
 
@@ -16,8 +18,9 @@ const rootReducer = combineReducers({
 const store = configureStore(
   {
     reducer: rootReducer,
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
   },
-  applyMiddleware(logger),
+
 );
 
 export default store;

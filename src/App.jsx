@@ -1,13 +1,14 @@
+import React from 'react';
+import AppRouter from './routers';
 import './App.css';
 import BookingPage from './pages/BookingPage';
 import 'tw-elements';
 
-function App() {
-  return (
-    <>
-      <BookingPage />
-    </>
-  );
-}
+const App = () => (
+  <>
+    <BookingPage />
+    <AppRouter />
+  </>
+);
 
 export default App;
