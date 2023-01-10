@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { Route, Routes } from "react-router-dom";
-import NavBar from "../components/NavBar";
-import Home from "../pages/Home";
-import { getCars } from "../redux/Home/home";
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { Route, Routes } from 'react-router-dom';
+import NavBar from '../components/NavBar';
+import Home from '../pages/Home';
+import { getCars } from '../redux/Home/home';
 
 const AppRouter = () => {
   const dispatch = useDispatch();

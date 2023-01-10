@@ -4,18 +4,17 @@ import {
   CardFooter,
   CardHeader,
   Typography,
-} from "@material-tailwind/react";
-import React from "react";
-import { useSelector } from "react-redux";
-import Loader from "../components/Loader";
-import { allCars, allStatus } from "../redux/Home/home";
+} from '@material-tailwind/react';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import Loader from '../components/Loader';
+import { allCars, allStatus } from '../redux/Home/home';
 
 const Home = () => {
-  document.title = "ElDorado | Home";
+  document.title = 'ElDorado | Home';
   const cars = useSelector(allCars);
   const status = useSelector(allStatus);
-  console.log(cars);
-  return status === "loading" ? (
+  return status === 'loading' ? (
     <Loader />
   ) : (
     <div className="flex flex-col items-center w-[75vw]">
@@ -47,7 +46,10 @@ const Home = () => {
               divider
               className="flex items-center justify-between py-3"
             >
-              <Typography variant="small">${car.daily_price}</Typography>
+              <Typography variant="small">
+                $
+                {car.daily_price}
+              </Typography>
               <Typography variant="small" color="gray" className="flex gap-1">
                 {car.model}
               </Typography>
