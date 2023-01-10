@@ -14,7 +14,7 @@ const AppRouter = () => {
   return (
     <div className="flex">
       <NavBar />
-      <div className="sm:p-2 md:p-3 flex-1 h-screen">
+      <div className="sm:p-2 md:p-3 flex-1">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route
