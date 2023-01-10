@@ -17,7 +17,9 @@ const Home = () => {
   const status = useSelector(allStatus);
   const navigate = useNavigate();
   return status === 'loading' ? (
-    <Loader />
+    <div className="flex items-center justify-center h-96 w-[75vw]">
+      <Loader />
+    </div>
   ) : (
     <div className="flex flex-col items-center w-[75vw]">
       <div>
@@ -29,7 +31,7 @@ const Home = () => {
         </Typography>
         <hr className="border border-b-2 mb-5 bg-blue-gray-900" />
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-4 md:grid-cols-2 md:gap-4 lg:grid-cols-3 lg:gap-28 grid-">
+      <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-4 md:grid-cols-2 md:gap-4 lg:grid-cols-3 lg:gap-28">
         {cars.map((car) => (
           <Card
             className="cursor-pointer  w-52 sm:w-52 md:w-60 lg:w-72 my-5"

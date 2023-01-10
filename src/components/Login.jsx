@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import {
   Card,
   CardHeader,
@@ -81,15 +81,12 @@ const Login = () => {
         </Button>
         <Typography variant="small" className="mt-6 flex justify-center">
           Don&apos;t have an account?
-          <Typography
-            as="a"
-            href="/register"
-            variant="small"
-            color="amber"
-            className="ml-1 font-bold hover:text-gray-600"
+          <NavLink
+            to="/register"
+            className="ml-1 font-bold hover:text-gray-600 text-amber-700"
           >
             Sign up
-          </Typography>
+          </NavLink>
         </Typography>
       </CardFooter>
     </Card>
