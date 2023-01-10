@@ -57,6 +57,16 @@ const api = {
     const data = await response.json();
     return data;
   },
+  fetchCars: async () => {
+    const response = await fetch(`${baseURL}/cars`);
+    const cars = await response.json();
+    return cars;
+  },
+  fetchCar: async (id) => {
+    const response = await fetch(`${baseURL}/cars/${id}`);
+    const car = await response.json();
+    return car;
+  },
   reserveCar: async (id, booking) => {
     const response = await fetch(`${baseURL}/users/${id}/reservations`, {
       ...carBookingOptions({ booking }),
