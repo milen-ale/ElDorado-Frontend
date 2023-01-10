@@ -1,4 +1,24 @@
-@import url('./tailwind.css');
+@import url("./tailwind.css");
+
+/* Scrollbar section */
+::-webkit-scrollbar {
+  width: 0.3125rem;
+}
+
+::-webkit-scrollbar-track {
+  background: #fff;
+  border-radius: 0.3125rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background:
+    linear-gradient(
+      45deg,
+      rgba(18, 18, 18, 0.25),
+      rgba(255, 160, 0, 0.8) 100%
+    );
+  border-radius: 0.3125rem;
+}
 
 :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
@@ -41,26 +61,6 @@ html {
   margin: 0;
   padding: 0;
   box-sizing: inherit;
-}
-
-/* Scrollbar section */
-::-webkit-scrollbar {
-  width: 0.3125rem;
-}
-
-::-webkit-scrollbar-track {
-  background: #fff;
-  border-radius: 0.3125rem;
-}
-
-::-webkit-scrollbar-thumb {
-  background:
-    linear-gradient(
-      45deg,
-      rgba(18, 18, 18, 0.25),
-      rgba(255, 160, 0, 0.8) 100%
-    );
-  border-radius: 0.3125rem;
 }
 
 ::-webkit-scrollbar-thumb:hover {

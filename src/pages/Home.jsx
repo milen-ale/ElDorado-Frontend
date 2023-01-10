@@ -12,11 +12,11 @@ import Loader from '../components/Loader';
 import { allCars, allStatus } from '../redux/Home/home';
 
 const Home = () => {
-  document.title = "ElDorado | Home";
+  document.title = 'ElDorado | Home';
   const cars = useSelector(allCars);
   const status = useSelector(allStatus);
   const navigate = useNavigate();
-  return status === "loading" ? (
+  return status === 'loading' ? (
     <div className="flex items-center justify-center h-96 w-[75vw]">
       <Loader />
     </div>
@@ -54,7 +54,10 @@ const Home = () => {
               divider
               className="flex items-center justify-between py-3"
             >
-              <Typography variant="small">${car.daily_price}</Typography>
+              <Typography variant="small">
+                $
+                {car.daily_price}
+              </Typography>
               <Typography variant="small" color="gray" className="flex gap-1">
                 {car.model}
               </Typography>
