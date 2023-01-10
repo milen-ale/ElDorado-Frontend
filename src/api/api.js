@@ -37,7 +37,6 @@ const api = {
     setAuthToken(response);
 
     const data = await response.json();
-    console.log(data);
     return data;
   },
   reserveCar: async (id, booking) => {
@@ -46,9 +45,9 @@ const api = {
     });
 
     const data = await response.json();
-    console.log(data);
-    return data
-  }
+    return data;
+  },
+
 };
 
 export default api;
