@@ -35,8 +35,8 @@ const Booking = () => {
   };
   return (
     <>
-      <form className="flex flex-col ml-32 w-1/2" onSubmit={handleSubmit}>
-        <div className="flex flex-wrap justify-between -mx-3 mb-6">
+      <form className="flex flex-col w-1/2 mx-auto" onSubmit={handleSubmit}>
+        <div className="flex flex-wrap justify-between mb-6">
           <DatePicker
             required
             placeholderText="Pickup Date"
@@ -49,7 +49,7 @@ const Booking = () => {
           <DatePicker
             required
             placeholderText="Return Date"
-            className="w-full p-2 bg-black text-red"
+            className="w-full p-2 bg-black"
             selected={returnDate}
             dateFormat="yyyy/MM/dd"
             minDate={new Date()}
@@ -57,7 +57,8 @@ const Booking = () => {
           />
         </div>
         <Select
-          className="bg-black/30 text-white focus:bg-black/60 focus:border-blue-600 focus:outline-none basis-1/4"
+          color="amber"
+          className="bg-black/30 text-white"
           name="car"
           label="Select a car"
           onChange={handleCarId}
@@ -67,7 +68,7 @@ const Booking = () => {
             <Option value={car.id.toString()} key={car.id}>{car.name}</Option>
           ))}
         </Select>
-        <button className="bg-amber-600/90 rounded-md hover:bg-amber-400 text-black font-bold py-2 px-4 rounded-l mt-5" type="submit">Submit</button>
+        <button className="bg-amber-600/90 self-center rounded-md hover:bg-amber-400 text-black font-bold py-2 px-4 rounded-l mt-5" type="submit">Submit</button>
       </form>
     </>
   );

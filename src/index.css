@@ -66,3 +66,8 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: rgb(120 113 108);
 }
+
+.Car-Grid {
+  grid-template-columns: repeat(auto-fit, 260px);
+  justify-content: center;
+}
