@@ -108,8 +108,8 @@ const api = {
     const reservations = await response.json();
     return reservations;
   },
-  deleteReservation: async (userId, carId) => {
-    const response = await fetch(`${baseURL}/users/${userId}/reservations/${carId}`, {
+  deleteReservation: async (userId, reservationId) => {
+    const response = await fetch(`${baseURL}/users/${userId}/reservations/${reservationId}`, {
       ...removeReservationOptions(),
     });
     const data = await response.json();
