@@ -41,7 +41,7 @@ const Booking = () => {
   };
   return (
     <>
-      <form className="flex flex-col ml-32" onSubmit={handleSubmit}>
+      <form className="flex flex-col ml-32 w-1/2" onSubmit={handleSubmit}>
         <div className="flex flex-wrap justify-between -mx-3 mb-6">
           <DatePicker
             required
@@ -63,9 +63,9 @@ const Booking = () => {
           />
         </div>
         <Select
-          className="basis-1/4"
+          className="bg-black/30 text-white focus:bg-black/60 focus:border-blue-600 focus:outline-none basis-1/4"
           name="car"
-          label="car"
+          label="Select a car"
           onChange={handleCarId}
           required
         >
