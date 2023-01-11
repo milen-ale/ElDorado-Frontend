@@ -21,7 +21,7 @@ const Home = () => {
       <Loader />
     </div>
   ) : (
-    <div className="flex flex-col items-center w-[75vw]">
+    <>
       <div>
         <Typography
           variant="h1"
@@ -31,14 +31,14 @@ const Home = () => {
         </Typography>
         <hr className="border border-b-2 mb-5 bg-blue-gray-900" />
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-4 md:grid-cols-2 md:gap-4 lg:grid-cols-3 lg:gap-28">
+      <div className="Car-Grid grid gap-x-16 gap-y-6">
         {cars.map((car) => (
           <Card
-            className="cursor-pointer  w-52 sm:w-52 md:w-60 lg:w-72 my-5"
+            className="cursor-pointer mx-auto w-52 sm:w-52 md:w-60 lg:w-72 my-5"
             key={car.id}
             onClick={() => navigate(`/car-details/${car.id}`)}
           >
-            <CardHeader color="blue" className="relative h-56">
+            <CardHeader color="amber" className="relative h-56 mx-0.5">
               <img
                 src={car.image}
                 alt="img-blur-shadow"
@@ -65,7 +65,7 @@ const Home = () => {
           </Card>
         ))}
       </div>
-    </div>
+    </>
   );
 };
 

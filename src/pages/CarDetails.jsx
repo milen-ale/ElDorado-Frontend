@@ -11,7 +11,7 @@ const CarDetails = () => {
     dispatch(getCar(id));
   }, []);
   return (
-    <div className="flex justify-evenly w-[75vw] items-center">
+    <div className="flex justify-evenly  items-center">
       <div>
         <img
           className="w-[1000px] rounded-md "
