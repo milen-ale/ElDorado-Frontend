@@ -92,6 +92,11 @@ const api = {
     const data = await response.json();
     return data;
   },
+  fetchReservations: async (id) => {
+    const response = await fetch(`${baseURL}/users/${id}/reservations`);
+    const reservations = await response.json();
+    return reservations;
+  },
 };
 
 export default api;
