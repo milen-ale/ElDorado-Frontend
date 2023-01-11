@@ -50,7 +50,7 @@ const reservationsSlice = createSlice({
       }))
       .addCase(bookCar.fulfilled, (state, action) => ({
         ...state,
-        reservations: [...state.reservations, action.payload.data],
+        reservations: [action.payload.data, ...state.reservations],
         message: action.payload.message,
         status: 'succeeded',
       }))
