@@ -13,9 +13,9 @@ const initialState = {
   error: null,
 };
 // Thunks
-export const bookCar = createAsyncThunk(RESERVE_CAR, async ({ user_id: id, reservation }) => {
+export const bookCar = createAsyncThunk(RESERVE_CAR, async ({ userId, reservation }) => {
   try {
-    return await api.reserveCar(id, reservation);
+    return await api.reserveCar(userId, reservation);
   } catch (error) {
     return error.message;
   }
@@ -27,13 +27,14 @@ export const getReservations = createAsyncThunk(GET_RESERVATIONS, async (userId)
     return error.message;
   }
 });
-export const deleteReservation = createAsyncThunk(DELETE_RESERVATION, async ({ userId, carId }) => {
-  try {
-    return await api.deleteReservation(userId, carId);
-  } catch (error) {
-    return error.message;
-  }
-});
+export const deleteReservation = createAsyncThunk(DELETE_RESERVATION,
+  async ({ userId, reservationId }) => {
+    try {
+      return await api.deleteReservation(userId, reservationId);
+    } catch (error) {
+      return error.message;
+    }
+  });
 
 // Reducer
 const reservationsSlice = createSlice({
@@ -80,7 +81,7 @@ const reservationsSlice = createSlice({
       .addCase(deleteReservation.fulfilled, (state, action) => ({
         ...state,
         reservations: [...state.reservations
-          .filter((reservation) => reservation.id === action.payload.data.id)],
+          .filter((reservation) => reservation.id !== action.payload.data.id)],
         message: action.payload.message,
         status: 'succeeded',
       }))
@@ -96,5 +97,6 @@ const reservationsSlice = createSlice({
 export const carReservations = (state) => state.reservations.reservations;
 
 export const allStatus = (state) => state.reservations.status;
+export const allMessages = (state) => state.reservations.message;
 
 export default reservationsSlice.reducer;
