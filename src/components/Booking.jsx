@@ -5,21 +5,15 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { format } from 'date-fns';
 import { Select, Option } from '@material-tailwind/react';
 import { bookCar } from '../redux/Reservations/reservationsSlice';
-import api from '../api/api';
 import { useAuthUser } from '../redux/Auth/useAuthUser';
 import { allCars } from '../redux/Home/home';
 
 const Booking = () => {
   const [pickupDate, setPickupDate] = useState(null);
   const [returnDate, setReturnDate] = useState(null);
-  const user = {
-    email: 'abc@gmail.com',
-    password: '123456',
-  };
-  api.login(user);
+  const currentUser = useAuthUser();
   const cars = useSelector(allCars);
   const [carId, setCarId] = useState('');
-  const currentUser = useAuthUser();
   const dispatch = useDispatch();
 
   const handleCarId = (carId) => {
@@ -46,7 +40,7 @@ const Booking = () => {
           <DatePicker
             required
             placeholderText="Pickup Date"
-            className="mb-4 w-full p-2"
+            className="mb-4 w-full p-2 bg-black"
             selected={pickupDate}
             dateFormat="yyyy/MM/dd"
             minDate={new Date()}
@@ -55,7 +49,7 @@ const Booking = () => {
           <DatePicker
             required
             placeholderText="Return Date"
-            className="w-full p-2"
+            className="w-full p-2 bg-black text-red"
             selected={returnDate}
             dateFormat="yyyy/MM/dd"
             minDate={new Date()}
