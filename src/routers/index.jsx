@@ -6,6 +6,7 @@ import Home from '../pages/Home';
 import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
 import CarDetails from '../pages/CarDetails';
+import BookingPage from '../pages/BookingPage';
 import { getCars } from '../redux/Home/home';
 
 const AppRouter = () => {
@@ -23,7 +24,7 @@ const AppRouter = () => {
           <Route path="car-details/:id" element={<CarDetails />} />
           <Route
             path="/booking"
-            element={<h1>Booking component will be here</h1>}
+            element={<BookingPage />}
           />
           <Route
             path="/reservation"

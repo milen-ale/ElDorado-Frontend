@@ -19,7 +19,10 @@ const registerOptions = (user) => ({
 
 const carBookingOptions = (booking) => ({
   method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: localStorage.getItem('token'),
+  },
   body: JSON.stringify(booking),
 });
 

@@ -5,11 +5,13 @@ import {
 import logger from 'redux-logger';
 import authReducer from './Auth/authSlice';
 import carReducer from './Home/home';
+import reservationReducer from './Reservations/reservationsSlice';
 
 // root Reducer
 const rootReducer = combineReducers({
   auth: authReducer,
   cars: carReducer,
+  reservations: reservationReducer,
 });
 
 // Redux store
