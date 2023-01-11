@@ -76,6 +76,10 @@ const api = {
       headers: { Authorization: localStorage.getItem('token') },
     });
 
+    const { status: code } = response;
+
+    if (code === 401) throw new Error('Unauthorized, You must Login or Register');
+
     const currentUser = await response.json();
     return currentUser;
   },
@@ -98,7 +102,9 @@ const api = {
     return data;
   },
   fetchReservations: async (id) => {
-    const response = await fetch(`${baseURL}/users/${id}/reservations`);
+    const response = await fetch(`${baseURL}/users/${id}/reservations`, {
+      headers: { Authorization: localStorage.getItem('token') },
+    });
     const reservations = await response.json();
     return reservations;
   },
