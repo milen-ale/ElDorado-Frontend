@@ -26,6 +26,11 @@ const carBookingOptions = (booking) => ({
   body: JSON.stringify(booking),
 });
 
+const removeReservationOptions = () => ({
+  method: 'DELETE',
+  headers: { Authorization: localStorage.getItem('token') },
+});
+
 const logoutOptions = () => ({
   method: 'DELETE',
   headers: { Authorization: localStorage.getItem('token') },
@@ -96,6 +101,13 @@ const api = {
     const response = await fetch(`${baseURL}/users/${id}/reservations`);
     const reservations = await response.json();
     return reservations;
+  },
+  deleteReservation: async (userId, carId) => {
+    const response = await fetch(`${baseURL}/users/${userId}/reservations/${carId}`, {
+      ...removeReservationOptions(),
+    });
+    const data = await response.json();
+    return data;
   },
 };
 
