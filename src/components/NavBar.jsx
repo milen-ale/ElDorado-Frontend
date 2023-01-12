@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 import {
   ChevronLeftIcon,
   HomeIcon,
@@ -17,9 +17,12 @@ import whiteLogo from '../assets/logo-transparent-white.png';
 
 const NavBar = () => {
   const [open, setOpen] = useState(true);
+  const [hide, setHide] = useState(false);
+  const [width, setWidth] = useState(window.innerWidth);
   const [authenticated, setAuthenticated] = useState(false);
   const dispatch = useDispatch();
   const currentUser = useAuthUser();
+  const navigate = useNavigate();
 
   const isTokenSet = useToken();
   const menu = [
@@ -43,27 +46,51 @@ const NavBar = () => {
     },
   ];
 
+  const handleHide = () => {
+    setHide(!hide);
+  };
+
+  const hideSidebar = () => {
+    if (width < 768) {
+      setOpen(false);
+      setHide(true);
+    } else {
+      setOpen(true);
+      setHide(false);
+    }
+  };
+
+  const handleAuth = () => {
+    if (isTokenSet) setAuthenticated(true);
+    else setAuthenticated(false);
+  };
   const handleSignOut = () => {
     dispatch(signOut());
+    navigate('/');
   };
 
   useEffect(() => {
-    if (isTokenSet) setAuthenticated(true);
-    else setAuthenticated(false);
-  }, [isTokenSet]);
+    handleAuth();
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    hideSidebar();
+    return () => window.removeEventListener('resize', handleResize);
+  }, [isTokenSet, width]);
 
   return (
     <div
       className={`${
         open ? 'w-72' : 'w-20'
-      } bg-black/90 relative drop-shadow-xl duration-300`}
+      } bg-black/90 relative drop-shadow-xl duration-300 smax:absolute smax:bottom-0 smax:top-0 smax:z-50 ${
+        hide && 'h-max rounded-b-full duration-300'
+      } `}
     >
       <button
         type="button"
         onClick={() => setOpen(!open)}
         className={`absolute flex justify-center items-center bg-amber-700 p-0 hover:border-black top-9 w-6 h-6 border rounded-full cursor-pointer -right-3 ${
           !open && 'rotate-180'
-        }`}
+        } ${width < 768 && 'hidden'}`}
       >
         <ChevronLeftIcon className="w-5 stroke-white" />
       </button>
@@ -77,9 +104,13 @@ const NavBar = () => {
           />
         </div>
       ) : (
-        <RandomLuxLogo />
+        <RandomLuxLogo hideSideBar={handleHide} />
       )}
-      <ul className="pt-6 flex flex-col justify-center">
+      <ul
+        className={`pt-6 flex flex-col justify-center ${
+          hide && 'hidden duration-300'
+        }`}
+      >
         {authenticated && (
           <span
             className={`bg-white/90 rounded-sm'
@@ -119,7 +150,9 @@ const NavBar = () => {
               <button
                 type="button"
                 onClick={handleSignOut}
-                className={`group bg-transparent border-none rounded-md flex ${open && 'w-full'} gap-x-4 text-sm text-white items-center ${
+                className={`group bg-transparent border-none rounded-md flex ${
+                  open && 'w-full'
+                } gap-x-4 text-sm text-white items-center ${
                   !open
                   && 'justify-center w-max p-1 mx-auto transition-[display] duration-100'
                 } cursor-pointer p-3 my-2 hover:bg-amber-600/90 hover:text-black hover:rounded-md`}
@@ -137,7 +170,9 @@ const NavBar = () => {
               } flex gap-x-4 text-sm text-white items-center ${
                 !open
                   && 'justify-center w-max p-1 mx-auto transition-[display] duration-100'
-              } cursor-pointer p-3 my-2 hover:bg-amber-600/90 hover:text-black hover:rounded-md`}
+              } cursor-pointer p-3 my-2 hover:bg-amber-600/90 hover:text-black hover:rounded-md ${
+                hide && 'hidden duration-150'
+              }`}
             >
               <ArrowRightOnRectangleIcon className="w-7" />
               <span className={`${!open && 'hidden'}`}>Login</span>
