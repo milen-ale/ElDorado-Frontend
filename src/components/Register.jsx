@@ -49,7 +49,7 @@ const Register = () => {
     if (isTokenSet) navigate('/');
   }, [isTokenSet, currentUser]);
 
-  document.title = `ElDorado | Register`;
+  document.title = 'ElDorado | Register';
   return (
     <Card className="w-96 mt-5 mx-auto bg-white/90 backdrop-blur-md">
       <CardHeader

@@ -51,7 +51,7 @@ const Booking = () => {
     }
   }, [message]);
 
-  document.title = `ElDorado | Booking`;
+  document.title = 'ElDorado | Booking';
   return (
     <Card className="mt-5 mb-64 max-w-sm mx-auto bg-white/90 backdrop-blur-md">
       <CardHeader

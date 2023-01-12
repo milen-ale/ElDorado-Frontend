@@ -52,7 +52,7 @@ const Home = () => {
           Latest Models
         </Typography>
       </div>
-      <Carousel cols={cols} gap={10} scrollSnap={true}>
+      <Carousel cols={cols} gap={10} scrollSnap>
         {cars.map((car) => (
           <Carousel.Item key={car.id}>
             <Card
