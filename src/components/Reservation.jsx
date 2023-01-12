@@ -39,6 +39,7 @@ const Reservation = () => {
     if (reservations.length === 0) dispatch(getReservations());
   }, [dispatch, reservations.length]);
 
+  document.title = `ElDorado | Reservations: ${reservations.length}`;
   return status === 'loading' ? (
     <div className="flex items-center justify-center h-96 w-[75vw]">
       <Loader />
