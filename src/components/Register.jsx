@@ -56,7 +56,7 @@ const Register = () => {
         color="amber"
         className="mb-4 grid h-28 place-items-center"
       >
-        <Typography variant="h3" color="white">
+        <Typography variant="h3" color="white" className="font-osans uppercase tracking-widest font-light">
           Register
         </Typography>
       </CardHeader>
