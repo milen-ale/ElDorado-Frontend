@@ -26,6 +26,11 @@ const carBookingOptions = (booking) => ({
   body: JSON.stringify(booking),
 });
 
+const removeReservationOptions = () => ({
+  method: 'DELETE',
+  headers: { Authorization: localStorage.getItem('token') },
+});
+
 const logoutOptions = () => ({
   method: 'DELETE',
   headers: { Authorization: localStorage.getItem('token') },
@@ -71,6 +76,10 @@ const api = {
       headers: { Authorization: localStorage.getItem('token') },
     });
 
+    const { status: code } = response;
+
+    if (code === 401) throw new Error('Unauthorized, You must Login or Register');
+
     const currentUser = await response.json();
     return currentUser;
   },
@@ -89,6 +98,20 @@ const api = {
       ...carBookingOptions({ booking }),
     });
 
+    const data = await response.json();
+    return data;
+  },
+  fetchReservations: async (id) => {
+    const response = await fetch(`${baseURL}/users/${id}/reservations`, {
+      headers: { Authorization: localStorage.getItem('token') },
+    });
+    const reservations = await response.json();
+    return reservations;
+  },
+  deleteReservation: async (userId, reservationId) => {
+    const response = await fetch(`${baseURL}/users/${userId}/reservations/${reservationId}`, {
+      ...removeReservationOptions(),
+    });
     const data = await response.json();
     return data;
   },

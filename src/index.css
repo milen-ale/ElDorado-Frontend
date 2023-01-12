@@ -40,7 +40,7 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  padding-right: 0.3rem;
+  padding-right: 0.11rem;
 }
 
 h1 {
@@ -65,4 +65,9 @@ html {
 
 ::-webkit-scrollbar-thumb:hover {
   background: rgb(120 113 108);
+}
+
+.Car-Grid {
+  grid-template-columns: repeat(auto-fit, 260px);
+  justify-content: center;
 }

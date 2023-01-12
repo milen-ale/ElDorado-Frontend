@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { format } from 'date-fns';
+import moment from 'moment';
 import { Select, Option } from '@material-tailwind/react';
-import { bookCar } from '../redux/Reservations/reservationsSlice';
+import { allMessages, bookCar } from '../redux/Reservations/reservationsSlice';
 import { useAuthUser } from '../redux/Auth/useAuthUser';
 import { allCars } from '../redux/Home/home';
 
@@ -13,30 +14,39 @@ const Booking = () => {
   const [returnDate, setReturnDate] = useState(null);
   const currentUser = useAuthUser();
   const cars = useSelector(allCars);
-  const [carId, setCarId] = useState('');
+  const message = useSelector(allMessages);
+  const [carId, setCarId] = useState(0);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleDateFormat = (date) => moment(date).format('YYYY-MM-DD');
 
   const handleCarId = (carId) => {
-    setCarId(parseInt(carId, 10));
+    setCarId(+carId);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const reservation = {
-      pickup_date: format(pickupDate, 'yyyy-MM-dd'),
-      return_date: format(returnDate, 'yyyy-MM-dd'),
+      pickup_date: handleDateFormat(pickupDate),
+      return_date: handleDateFormat(returnDate),
       car_id: carId,
     };
     const reservationObject = {
       reservation,
-      user_id: currentUser.id,
+      userId: currentUser.id,
     };
     dispatch(bookCar(reservationObject));
   };
+
+  useEffect(() => {
+    if (message === 'Car has been successfully booked') navigate('/reservation');
+  }, [message]);
+
   return (
     <>
-      <form className="flex flex-col ml-32 w-1/2" onSubmit={handleSubmit}>
-        <div className="flex flex-wrap justify-between -mx-3 mb-6">
+      <form className="flex flex-col w-1/2 mx-auto" onSubmit={handleSubmit}>
+        <div className="flex flex-wrap justify-between mb-6">
           <DatePicker
             required
             placeholderText="Pickup Date"
@@ -44,30 +54,42 @@ const Booking = () => {
             selected={pickupDate}
             dateFormat="yyyy/MM/dd"
             minDate={new Date()}
-            onChange={(date) => { setPickupDate(date); }}
+            onChange={(date) => {
+              setPickupDate(date);
+            }}
           />
           <DatePicker
             required
             placeholderText="Return Date"
-            className="w-full p-2 bg-black text-red"
+            className="w-full p-2 bg-black"
             selected={returnDate}
             dateFormat="yyyy/MM/dd"
             minDate={new Date()}
-            onChange={(date) => { setReturnDate(date); }}
+            onChange={(date) => {
+              setReturnDate(date);
+            }}
           />
         </div>
         <Select
-          className="bg-black/30 text-white focus:bg-black/60 focus:border-blue-600 focus:outline-none basis-1/4"
+          color="amber"
+          className="bg-black/30 text-white"
           name="car"
           label="Select a car"
           onChange={handleCarId}
           required
         >
-          {cars.map((car) => (
-            <Option value={car.id.toString()} key={car.id}>{car.name}</Option>
+          {cars.map(({ id: carId, name }) => (
+            <Option value={carId.toString()} key={carId}>
+              {name}
+            </Option>
           ))}
         </Select>
-        <button className="bg-amber-600/90 rounded-md hover:bg-amber-400 text-black font-bold py-2 px-4 rounded-l mt-5" type="submit">Submit</button>
+        <button
+          className="bg-amber-600/90 self-center rounded-md hover:bg-amber-400 text-black font-bold py-2 px-4 rounded-l mt-5"
+          type="submit"
+        >
+          Submit
+        </button>
       </form>
     </>
   );
