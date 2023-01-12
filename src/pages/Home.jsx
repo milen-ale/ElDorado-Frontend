@@ -5,7 +5,9 @@ import {
   CardHeader,
   Typography,
 } from '@material-tailwind/react';
-import React from 'react';
+// import { Carousel } from 'antd';
+import Carousel from 'react-grid-carousel';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../components/Loader';
@@ -13,9 +15,29 @@ import { allCars, allStatus } from '../redux/Home/home';
 
 const Home = () => {
   document.title = 'ElDorado | Home';
+  const [width, setWidth] = useState(window.innerWidth);
+  const [cols, setCols] = useState(3);
   const cars = useSelector(allCars);
   const status = useSelector(allStatus);
   const navigate = useNavigate();
+
+  const handleCarouselCols = () => {
+    if (width < 500) {
+      setCols(1);
+    } else if (width < 1024) {
+      setCols(2);
+    } else {
+      setCols(3);
+    }
+  };
+
+  useEffect(() => {
+    handleCarouselCols();
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [width, cols]);
+
   return status === 'loading' ? (
     <div className="flex items-center justify-center h-96 w-[75vw]">
       <Loader />
@@ -25,46 +47,46 @@ const Home = () => {
       <div>
         <Typography
           variant="h1"
-          className="text-center text-xl sm:text-2xl md:text-3xl"
+          className="uppercase font-osans font-extralight tracking-widest mb-3 text-center text-xl sm:text-2xl md:text-3xl border-b-2 pb-2"
         >
           Latest Models
         </Typography>
-        <hr className="border border-b-2 mb-5 bg-blue-gray-900" />
       </div>
-      <div className="Car-Grid grid gap-x-16 gap-y-6">
+      <Carousel cols={cols} gap={10}>
         {cars.map((car) => (
-          <Card
-            className="cursor-pointer mx-auto w-52 sm:w-52 md:w-60 lg:w-72 my-5"
-            key={car.id}
-            onClick={() => navigate(`/car-details/${car.id}`)}
-          >
-            <CardHeader color="amber" className="relative h-56 mx-0.5">
-              <img
-                src={car.image}
-                alt="img-blur-shadow"
-                className="h-full w-full"
-              />
-            </CardHeader>
-            <CardBody className="text-center">
-              <Typography variant="h5" className="mb-2">
-                {car.name}
-              </Typography>
-            </CardBody>
-            <CardFooter
-              divider
-              className="flex items-center justify-between py-3"
+          <Carousel.Item key={car.id}>
+            <Card
+              className="w-full cursor-pointer my-5"
+              onClick={() => navigate(`/car-details/${car.id}`)}
             >
-              <Typography variant="small">
-                $
-                {car.daily_price}
-              </Typography>
-              <Typography variant="small" color="gray" className="flex gap-1">
-                {car.model}
-              </Typography>
-            </CardFooter>
-          </Card>
+              <CardHeader color="amber" className="relative h-56 mx-0.5">
+                <img
+                  src={car.image}
+                  alt="img-blur-shadow"
+                  className="h-full w-full object-cover"
+                />
+              </CardHeader>
+              <CardBody className="px-2 text-center">
+                <Typography variant="h5" className="mb-2 whitespace-nowrap">
+                  {car.name}
+                </Typography>
+              </CardBody>
+              <CardFooter
+                divider
+                className="flex items-center justify-between py-3"
+              >
+                <Typography variant="small">
+                  $
+                  {car.daily_price}
+                </Typography>
+                <Typography variant="small" color="gray" className="flex gap-1">
+                  {car.model}
+                </Typography>
+              </CardFooter>
+            </Card>
+          </Carousel.Item>
         ))}
-      </div>
+      </Carousel>
     </>
   );
 };
