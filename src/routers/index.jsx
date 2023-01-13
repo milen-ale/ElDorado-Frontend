@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { Route, Routes } from "react-router-dom";
-import NavBar from "../components/NavBar";
-import Home from "../pages/Home";
-import LoginPage from "../pages/LoginPage";
-import RegisterPage from "../pages/RegisterPage";
-import CarDetails from "../pages/CarDetails";
-import BookingPage from "../pages/BookingPage";
-import ReservationPage from "../pages/ReservationPage";
-import { getCars } from "../redux/Home/home";
-import ProtectedRoute from "../components/ProtectedRoute";
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { Route, Routes } from 'react-router-dom';
+import NavBar from '../components/NavBar';
+import Home from '../pages/Home';
+import LoginPage from '../pages/LoginPage';
+import RegisterPage from '../pages/RegisterPage';
+import CarDetails from '../pages/CarDetails';
+import BookingPage from '../pages/BookingPage';
+import ReservationPage from '../pages/ReservationPage';
+import { getCars } from '../redux/Home/home';
+import ProtectedRoute from '../components/ProtectedRoute';
 
 const AppRouter = () => {
   const [open, setOpen] = useState(true);

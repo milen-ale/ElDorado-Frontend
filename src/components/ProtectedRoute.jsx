@@ -1,10 +1,10 @@
-import React from 'react'
-import { useToken } from '../redux/Auth/useAuthUser'
-import { Outlet, Navigate } from "react-router-dom";
+import React from 'react';
+import { Outlet, Navigate } from 'react-router-dom';
+import { useToken } from '../redux/Auth/useAuthUser';
 
 const ProtectedRoute = () => {
-  const isTokenSet  = useToken()
-    return isTokenSet ? <Outlet/>:<Navigate to='/login'/>
-}
+  const isTokenSet = useToken();
+  return isTokenSet ? <Outlet /> : <Navigate to="/login" />;
+};
 
-export default ProtectedRoute
+export default ProtectedRoute;
