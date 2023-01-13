@@ -1,39 +1,39 @@
-const baseURL = 'http://localhost:3000/api/v1';
+const baseURL = "http://localhost:3000/api/v1";
 
-const setAuthToken = ({ headers }) => localStorage.setItem('token', headers.get('Authorization'));
+const setAuthToken = ({ headers }) =>
+  localStorage.setItem("token", headers.get("Authorization"));
 
-const unsetAuthToken = () => localStorage.removeItem('token');
+const unsetAuthToken = () => localStorage.removeItem("token");
 
 const loginOptions = (user) => ({
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
   body: JSON.stringify(user),
 });
 
 const registerOptions = (user) => ({
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  // headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')},
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
   body: JSON.stringify(user),
 });
 
 const carBookingOptions = (booking) => ({
-  method: 'POST',
+  method: "POST",
   headers: {
-    'Content-Type': 'application/json',
-    Authorization: localStorage.getItem('token'),
+    "Content-Type": "application/json",
+    Authorization: localStorage.getItem("token"),
   },
   body: JSON.stringify(booking),
 });
 
 const removeReservationOptions = () => ({
-  method: 'DELETE',
-  headers: { Authorization: localStorage.getItem('token') },
+  method: "DELETE",
+  headers: { Authorization: localStorage.getItem("token") },
 });
 
 const logoutOptions = () => ({
-  method: 'DELETE',
-  headers: { Authorization: localStorage.getItem('token') },
+  method: "DELETE",
+  headers: { Authorization: localStorage.getItem("token") },
 });
 
 const api = {
@@ -66,22 +66,50 @@ const api = {
 
     const { status: code } = response;
 
-    if (code === 200) unsetAuthToken();
-
-    const data = await response.json();
-    return data;
+    if (code === 200) {
+      unsetAuthToken()
+      const data = await response.json();
+      return {
+        user: {},
+        status: "success",
+        message: data.message
+      };
+    };
+    if (code === 500) {
+      unsetAuthToken();
+      return {
+        user: {},
+        status: "expired",
+        error: "Unauthorized, You must Login or Register",
+        message: "Session for User has expired",
+      };
+    }
   },
   fetchAuthUser: async () => {
     const response = await fetch(`${baseURL}/users`, {
-      headers: { Authorization: localStorage.getItem('token') },
+      headers: { Authorization: localStorage.getItem("token") },
     });
 
     const { status: code } = response;
 
-    if (code === 401) throw new Error('Unauthorized, You must Login or Register');
-
-    const currentUser = await response.json();
-    return currentUser;
+    if (code === 401) {
+      unsetAuthToken();
+      return {
+        user: {},
+        status: "expired",
+        error: "Unauthorized, You must Login or Register",
+        message: "Session for User has expired",
+      };
+    }
+    if (code === 200) {
+      const currentUser = await response.json();
+      return {
+        user: currentUser,
+        status: "succeeded",
+        error: null,
+        message: "User is authenticated",
+      };
+    }
   },
   fetchCars: async () => {
     const response = await fetch(`${baseURL}/cars`);
@@ -103,15 +131,18 @@ const api = {
   },
   fetchReservations: async (id) => {
     const response = await fetch(`${baseURL}/users/${id}/reservations`, {
-      headers: { Authorization: localStorage.getItem('token') },
+      headers: { Authorization: localStorage.getItem("token") },
     });
     const reservations = await response.json();
     return reservations;
   },
   deleteReservation: async (userId, reservationId) => {
-    const response = await fetch(`${baseURL}/users/${userId}/reservations/${reservationId}`, {
-      ...removeReservationOptions(),
-    });
+    const response = await fetch(
+      `${baseURL}/users/${userId}/reservations/${reservationId}`,
+      {
+        ...removeReservationOptions(),
+      }
+    );
     const data = await response.json();
     return data;
   },
