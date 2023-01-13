@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { DatePicker } from 'antd';
-import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
 import * as dayjs from 'dayjs';
 import {
@@ -52,6 +51,7 @@ const Booking = () => {
     }
   }, [message]);
 
+  document.title = 'ElDorado | Booking';
   return (
     <Card className="mt-5 mb-64 max-w-sm mx-auto bg-white/90 backdrop-blur-md">
       <CardHeader

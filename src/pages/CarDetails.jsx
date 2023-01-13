@@ -7,6 +7,7 @@ const CarDetails = () => {
   const { id } = useParams();
   const carDetails = useSelector(car);
   const dispatch = useDispatch();
+  document.title = `ElDorado | ${carDetails.name}`;
   useEffect(() => {
     dispatch(getCar(id));
   }, []);

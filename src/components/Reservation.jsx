@@ -9,6 +9,7 @@ import { TrashIcon } from '@heroicons/react/24/outline';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  setMessageEmpty,
   allStatus,
   carReservations,
   getReservations,
@@ -34,18 +35,32 @@ const Reservation = () => {
   };
 
   useEffect(() => {
+    dispatch(setMessageEmpty(''));
     if (reservations.length === 0) dispatch(getReservations());
   }, [dispatch, reservations.length]);
 
+  document.title = `ElDorado | Reservations: ${reservations.length}`;
   return status === 'loading' ? (
     <div className="flex items-center justify-center h-96 w-[75vw]">
       <Loader />
     </div>
   ) : (
-    <div className="w-96 mt-5 mx-auto flex flex-col gap-y-12 h-[95%]">
+    <div className="max-w-sm mt-3 mx-auto flex flex-col gap-y-12 h-[95%]">
+      <div>
+        <Typography
+          variant="h1"
+          className="uppercase font-osans font-extralight tracking-widest mb-3 text-center text-xl sm:text-2xl md:text-3xl border-b-2 pb-2"
+        >
+          reservations
+        </Typography>
+      </div>
       {reservations.length === 0 ? (
-        <Card className="w-96 my-auto h-32">
-          <CardBody className="text-center font-bold my-auto text-2xl"> No Reservations </CardBody>
+        <Card className="max-w-sm my-auto h-32">
+          <CardBody className="text-center font-bold my-auto text-2xl">
+            {' '}
+            No Reservations
+            {' '}
+          </CardBody>
         </Card>
       ) : (
         reservations.map(
@@ -57,7 +72,7 @@ const Reservation = () => {
               name: carName, model, image, daily_price: dailyPrice,
             },
           }) => (
-            <Card key={reservationId} className="w-96">
+            <Card key={reservationId} className="max-w-sm">
               <CardHeader color="amber" className="relative h-56">
                 <img
                   src={image}

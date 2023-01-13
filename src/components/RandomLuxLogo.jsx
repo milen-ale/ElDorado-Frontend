@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import audi from '../assets/car-logos/audi.svg';
 import bmw from '../assets/car-logos/bmw.svg';
 import cadillac from '../assets/car-logos/cadillac.svg';
@@ -11,7 +12,7 @@ import porsche from '../assets/car-logos/porsche.svg';
 import rollsRoyce from '../assets/car-logos/rolls-royce.svg';
 import tesla from '../assets/car-logos/tesla.svg';
 
-const RandomLuxLogo = () => {
+const RandomLuxLogo = ({ hideSideBar }) => {
   const carLogos = [
     audi,
     bmw,
@@ -27,11 +28,20 @@ const RandomLuxLogo = () => {
   ];
 
   const randomCarLogo = carLogos[Math.floor(Math.random() * carLogos.length)];
+
   return (
-    <div className="mt-3 w-max mx-auto">
+    <button
+      type="button"
+      onClick={hideSideBar}
+      className="mt-3 w-max mx-auto flex justify-center"
+    >
       <img className="w-16" src={randomCarLogo} alt="random-lux-car-logo" />
-    </div>
+    </button>
   );
+};
+
+RandomLuxLogo.propTypes = {
+  hideSideBar: PropTypes.func.isRequired,
 };
 
 export default RandomLuxLogo;

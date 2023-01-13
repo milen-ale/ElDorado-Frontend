@@ -1,5 +1,5 @@
-import React, { useState, Fragment } from 'react';
-import PropType from 'prop-types';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import {
   Accordion,
   AccordionHeader,
@@ -50,9 +50,9 @@ const ReservationDetail = ({
 };
 
 ReservationDetail.propTypes = {
-  title: PropType.string.isRequired,
-  model: PropType.string.isRequired,
-  pickupDate: PropType.string.isRequired,
-  returnDate: PropType.string.isRequired,
+  title: PropTypes.string.isRequired,
+  model: PropTypes.string.isRequired,
+  pickupDate: PropTypes.string.isRequired,
+  returnDate: PropTypes.string.isRequired,
 };
 export default ReservationDetail;
