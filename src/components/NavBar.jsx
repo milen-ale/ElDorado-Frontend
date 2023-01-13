@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import { useNavigate, NavLink } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import { useNavigate, NavLink } from "react-router-dom";
 import {
   ChevronLeftIcon,
   HomeIcon,
@@ -8,17 +8,17 @@ import {
   BookmarkIcon,
   ArrowRightOnRectangleIcon,
   UserIcon,
-} from '@heroicons/react/24/outline';
-import { useDispatch } from 'react-redux';
-import { useToken, useAuthUser } from '../redux/Auth/useAuthUser';
-import { signOut } from '../redux/Auth/authSlice';
+} from "@heroicons/react/24/outline";
+import { useDispatch } from "react-redux";
+import { useToken, useAuthUser } from "../redux/Auth/useAuthUser";
+import { signOut } from "../redux/Auth/authSlice";
 import {
   getReservations,
   resetReservationState,
-} from '../redux/Reservations/reservationsSlice';
+} from "../redux/Reservations/reservationsSlice";
 
-import RandomLuxLogo from './RandomLuxLogo';
-import whiteLogo from '../assets/logo-transparent-white.png';
+import RandomLuxLogo from "./RandomLuxLogo";
+import whiteLogo from "../assets/logo-transparent-white.png";
 
 const NavBar = ({ open, handleOpen }) => {
   const [hide, setHide] = useState(false);
@@ -32,21 +32,21 @@ const NavBar = ({ open, handleOpen }) => {
   const menu = [
     {
       id: 1,
-      name: 'Home',
+      name: "Home",
       icon: <HomeIcon className="w-7" />,
-      path: '/',
+      path: "/",
     },
     {
       id: 2,
-      name: 'Booking',
+      name: "Booking",
       icon: <CreditCardIcon className="w-7" />,
-      path: '/booking',
+      path: "/booking",
     },
     {
       id: 3,
-      name: 'Reservation',
+      name: "Reservation",
       icon: <BookmarkIcon className="w-7" />,
-      path: '/reservation',
+      path: "/reservation",
     },
   ];
 
@@ -71,34 +71,35 @@ const NavBar = ({ open, handleOpen }) => {
       dispatch(getReservations());
     } else setAuthenticated(false);
   };
+
   const handleSignOut = () => {
     dispatch(signOut());
     dispatch(resetReservationState());
-    navigate('/');
+    navigate("/");
   };
 
   useEffect(() => {
     handleAuth();
-    const handleResize = () => setWidth(window.innerWidth);
-    window.addEventListener('resize', handleResize);
+    const handleResize = () =>  setWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
     hideSidebar();
-    return () => window.removeEventListener('resize', handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, [isTokenSet, width]);
 
   return (
     <div
       className={`${
-        open ? 'w-72' : 'w-20'
+        open ? "w-72" : "w-20"
       } bg-black/90 relative drop-shadow-xl duration-300 smax:absolute smax:bottom-0 smax:top-0 smax:z-50 ${
-        hide && 'h-max rounded-b-full duration-300'
+        hide && "h-max rounded-b-full duration-300"
       } `}
     >
       <button
         type="button"
         onClick={() => handleOpen()}
         className={`absolute flex justify-center items-center bg-amber-700 p-0 hover:border-black top-9 w-6 h-6 border rounded-full cursor-pointer -right-3 ${
-          !open && 'rotate-180'
-        } ${width < 768 && 'hidden'}`}
+          !open && "rotate-180"
+        } ${width < 768 && "hidden"}`}
       >
         <ChevronLeftIcon className="w-5 stroke-white" />
       </button>
@@ -116,39 +117,39 @@ const NavBar = ({ open, handleOpen }) => {
       )}
       <ul
         className={`pt-6 flex flex-col justify-center ${
-          hide && 'hidden duration-300'
+          hide && "hidden duration-300"
         }`}
       >
         {authenticated && (
           <span
             className={`bg-white/90 rounded-sm'
                flex gap-x-4 text-sm text-black items-center ${
-                 !open
-                 && 'justify-center w-max p-1 mx-auto transition-[display] duration-100'
+                 !open &&
+                 "justify-center w-max p-1 mx-auto transition-[display] duration-100"
                } cursor-pointer p-3 my-2 text-black`}
           >
             <UserIcon className="w-7" />
-            <span className={`${!open && 'hidden'} text-black`}>
+            <span className={`${!open && "hidden"} text-black`}>
               {currentUser.name}
             </span>
           </span>
         )}
-        {menu.map(({
-          id, name, icon, path,
-        }) => (
+        {menu.map(({ id, name, icon, path }) => (
           <li className="" key={id}>
             <NavLink
               end
               to={path}
-              className={({ isActive }) => `${
-                isActive && 'bg-amber-600/90 rounded-md'
-              } flex gap-x-4 text-sm text-white items-center ${
-                !open
-                  && 'justify-center w-max p-1 mx-auto transition-[display] duration-100'
-              } cursor-pointer p-3 my-2 hover:bg-amber-600/90 hover:text-black hover:rounded-md`}
+              className={({ isActive }) =>
+                `${
+                  isActive && "bg-amber-600/90 rounded-md"
+                } flex gap-x-4 text-sm text-white items-center ${
+                  !open &&
+                  "justify-center w-max p-1 mx-auto transition-[display] duration-100"
+                } cursor-pointer p-3 my-2 hover:bg-amber-600/90 hover:text-black hover:rounded-md`
+              }
             >
               {icon}
-              <span className={`${!open && 'hidden'}`}>{name}</span>
+              <span className={`${!open && "hidden"}`}>{name}</span>
             </NavLink>
           </li>
         ))}
@@ -159,31 +160,33 @@ const NavBar = ({ open, handleOpen }) => {
                 type="button"
                 onClick={handleSignOut}
                 className={`group bg-transparent border-none rounded-md flex ${
-                  open && 'w-full'
+                  open && "w-full"
                 } gap-x-4 text-sm text-white items-center ${
-                  !open
-                  && 'justify-center w-max p-1 mx-auto transition-[display] duration-100'
+                  !open &&
+                  "justify-center w-max p-1 mx-auto transition-[display] duration-100"
                 } cursor-pointer p-3 my-2 hover:bg-amber-600/90 hover:text-black hover:rounded-md`}
               >
                 <ArrowRightOnRectangleIcon className="w-7 rotate-180 group-hover:-translate-x-0.5 transition duration-300" />
-                <span className={`${!open && 'hidden'}`}>Logout</span>
+                <span className={`${!open && "hidden"}`}>Logout</span>
               </button>
             </>
           ) : (
             <NavLink
               end
               to="/login"
-              className={({ isActive }) => `${
-                isActive && 'bg-amber-600/90 rounded-md '
-              } flex gap-x-4 text-sm text-white items-center ${
-                !open
-                  && 'justify-center w-max p-1 mx-auto transition-[display] duration-100'
-              } cursor-pointer p-3 my-2 hover:bg-amber-600/90 hover:text-black hover:rounded-md ${
-                hide && 'hidden duration-150'
-              }`}
+              className={({ isActive }) =>
+                `${
+                  isActive && "bg-amber-600/90 rounded-md "
+                } flex gap-x-4 text-sm text-white items-center ${
+                  !open &&
+                  "justify-center w-max p-1 mx-auto transition-[display] duration-100"
+                } cursor-pointer p-3 my-2 hover:bg-amber-600/90 hover:text-black hover:rounded-md ${
+                  hide && "hidden duration-150"
+                }`
+              }
             >
               <ArrowRightOnRectangleIcon className="w-7" />
-              <span className={`${!open && 'hidden'}`}>Login</span>
+              <span className={`${!open && "hidden"}`}>Login</span>
             </NavLink>
           )}
         </li>
