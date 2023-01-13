@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { DatePicker } from 'antd';
 import moment from 'moment';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import {
   Card,
   CardHeader,
@@ -16,15 +16,16 @@ import {
 } from '@material-tailwind/react';
 import { allMessages, bookCar } from '../redux/Reservations/reservationsSlice';
 import { useAuthUser } from '../redux/Auth/useAuthUser';
-import { allCars } from '../redux/Home/home';
+import { allCars, car } from '../redux/Home/home';
 
 const Booking = () => {
   const [pickupDate, setPickupDate] = useState(null);
   const [returnDate, setReturnDate] = useState(null);
   const currentUser = useAuthUser();
   const cars = useSelector(allCars);
+  const { id: selectedCarId } = useSelector(car);
   const message = useSelector(allMessages);
-  const [carId, setCarId] = useState(0);
+  const [carId, setCarId] = useState(selectedCarId || 0);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -94,6 +95,7 @@ const Booking = () => {
           color="amber"
           className=""
           name="car"
+          value={carId.toString()}
           label="Select a car"
           onChange={handleCarId}
           required
@@ -126,8 +128,3 @@ const Booking = () => {
 };
 
 export default Booking;
-
-// Intro paragraph for the booking page
-// El Dorado is a car rental company that offers a wide range of vehicles for rent.
-// From Lamborghini to Mercedes, we have it all.
-// El Dorado provides you with the best car rental services worldwide.

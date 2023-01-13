@@ -16,6 +16,7 @@ import {
   deleteReservation,
 } from '../redux/Reservations/reservationsSlice';
 import { useAuthUser } from '../redux/Auth/useAuthUser';
+import { resetCarState } from '../redux/Home/home';
 import Loader from './Loader';
 import ReservationDetail from './ReservationDetail';
 
@@ -36,8 +37,9 @@ const Reservation = () => {
 
   useEffect(() => {
     dispatch(setMessageEmpty(''));
+    dispatch(resetCarState());
     if (reservations.length === 0) dispatch(getReservations());
-  }, [dispatch, reservations.length]);
+  }, [reservations.length]);
 
   document.title = `ElDorado | Reservations: ${reservations.length}`;
   return status === 'loading' ? (

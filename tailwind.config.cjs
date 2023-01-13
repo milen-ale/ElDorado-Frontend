@@ -6,8 +6,6 @@ module.exports = withMT({
     extend: {
       fontFamily: {
         osans: ['Open Sans', 'sans-serif'],
-        'osans-light': ['Open Sans Light', 'sans-serif'],
-        'osans-condensed': ['Open Sans Condensed', 'sans-serif'],
       },
       letterSpacing: {
         widest: '.19em',
