@@ -41,7 +41,19 @@ const reservationsSlice = createSlice({
 
   name: 'reservations',
   initialState,
-  reducers: {},
+  reducers: {
+    resetReservationState: (state) => ({
+      ...state,
+      reservations: [],
+      status: 'idle',
+      message: '',
+      error: null,
+    }),
+    setMessageEmpty: (state, action) => ({
+      ...state,
+      message: action.payload,
+    }),
+  },
   extraReducers: (builder) => {
     builder
       .addCase(bookCar.pending, (state) => ({
@@ -95,7 +107,7 @@ const reservationsSlice = createSlice({
 });
 
 export const carReservations = (state) => state.reservations.reservations;
-
+export const { resetReservationState, setMessageEmpty } = reservationsSlice.actions;
 export const allStatus = (state) => state.reservations.status;
 export const allMessages = (state) => state.reservations.message;
 

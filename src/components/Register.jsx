@@ -49,6 +49,7 @@ const Register = () => {
     if (isTokenSet) navigate('/');
   }, [isTokenSet, currentUser]);
 
+  document.title = 'ElDorado | Register';
   return (
     <Card className="w-96 mt-5 mx-auto bg-white/90 backdrop-blur-md">
       <CardHeader
@@ -56,7 +57,7 @@ const Register = () => {
         color="amber"
         className="mb-4 grid h-28 place-items-center"
       >
-        <Typography variant="h3" color="white">
+        <Typography variant="h3" color="white" className="font-osans uppercase tracking-widest font-light">
           Register
         </Typography>
       </CardHeader>
