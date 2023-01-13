@@ -14,6 +14,8 @@ const CarDetails = ({ open }) => {
     navigate('/booking');
   };
 
+  document.title = `ElDorado | ${carDetails.name}`;
+
   useEffect(() => {
     dispatch(getCar(id));
   }, []);

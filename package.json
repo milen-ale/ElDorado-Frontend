@@ -11,7 +11,8 @@
     "eslint": "npx eslint \"**/*.{js,jsx}\"",
     "eslint:fix": "npx eslint \"**/*.{js,jsx}\" --fix",
     "stylelint": "npx stylelint \"**/*.{css,scss}\"",
-    "stylelint:fix": "npx stylelint \"**/*.{css,scss}\" --fix"
+    "stylelint:fix": "npx stylelint \"**/*.{css,scss}\" --fix",
+    "carousel:install": "npm i --force react-grid-carousel" 
   },
   "eslintConfig": {
     "extends": [

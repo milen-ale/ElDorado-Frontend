@@ -42,6 +42,7 @@ const Login = () => {
     if (isTokenSet) navigate('/');
   }, [isTokenSet, currentUser]);
 
+  document.title = 'ElDorado | Login';
   return (
     <Card className="mt-5 max-w-sm mx-auto bg-white/90 backdrop-blur-md">
       <CardHeader
