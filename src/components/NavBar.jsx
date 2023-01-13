@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { useNavigate, NavLink } from 'react-router-dom';
 import {
   ChevronLeftIcon,
@@ -11,17 +12,20 @@ import {
 import { useDispatch } from 'react-redux';
 import { useToken, useAuthUser } from '../redux/Auth/useAuthUser';
 import { signOut } from '../redux/Auth/authSlice';
+import {
+  getReservations,
+  resetReservationState,
+} from '../redux/Reservations/reservationsSlice';
 
 import RandomLuxLogo from './RandomLuxLogo';
 import whiteLogo from '../assets/logo-transparent-white.png';
 
-const NavBar = () => {
-  const [open, setOpen] = useState(true);
+const NavBar = ({ open, handleOpen }) => {
   const [hide, setHide] = useState(false);
   const [width, setWidth] = useState(window.innerWidth);
   const [authenticated, setAuthenticated] = useState(false);
-  const dispatch = useDispatch();
   const currentUser = useAuthUser();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const isTokenSet = useToken();
@@ -47,25 +51,29 @@ const NavBar = () => {
   ];
 
   const handleHide = () => {
-    setHide(!hide);
+    if (width < 768) setHide(!hide);
+    else setHide(false);
   };
 
   const hideSidebar = () => {
     if (width < 768) {
-      setOpen(false);
+      handleOpen(false);
       setHide(true);
     } else {
-      setOpen(true);
+      handleOpen(true);
       setHide(false);
     }
   };
 
   const handleAuth = () => {
-    if (isTokenSet) setAuthenticated(true);
-    else setAuthenticated(false);
+    if (isTokenSet) {
+      setAuthenticated(true);
+      dispatch(getReservations());
+    } else setAuthenticated(false);
   };
   const handleSignOut = () => {
     dispatch(signOut());
+    dispatch(resetReservationState());
     navigate('/');
   };
 
@@ -87,7 +95,7 @@ const NavBar = () => {
     >
       <button
         type="button"
-        onClick={() => setOpen(!open)}
+        onClick={() => handleOpen()}
         className={`absolute flex justify-center items-center bg-amber-700 p-0 hover:border-black top-9 w-6 h-6 border rounded-full cursor-pointer -right-3 ${
           !open && 'rotate-180'
         } ${width < 768 && 'hidden'}`}
@@ -183,4 +191,10 @@ const NavBar = () => {
     </div>
   );
 };
+
+NavBar.propTypes = {
+  open: PropTypes.bool.isRequired,
+  handleOpen: PropTypes.func.isRequired,
+};
+
 export default NavBar;
