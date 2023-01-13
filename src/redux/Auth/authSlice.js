@@ -39,13 +39,16 @@ export const signOut = createAsyncThunk(LOGOUT, async () => {
   }
 });
 
-export const getAuthenticatedUser = createAsyncThunk(GET_AUTH_USER, async () => {
-  try {
-    return await api.fetchAuthUser();
-  } catch (error) {
-    return error.message;
-  }
-});
+export const getAuthenticatedUser = createAsyncThunk(
+  GET_AUTH_USER,
+  async () => {
+    try {
+      return await api.fetchAuthUser();
+    } catch (error) {
+      return error.message;
+    }
+  },
+);
 
 // Reducer
 const authSlice = createSlice({
@@ -92,7 +95,7 @@ const authSlice = createSlice({
         ...state,
         authenticatedUser: {},
         message: action.payload.message,
-        status: 'succeeded',
+        status: action.payload.status,
       }))
       .addCase(signOut.rejected, (state, action) => ({
         ...state,
@@ -105,9 +108,9 @@ const authSlice = createSlice({
       }))
       .addCase(getAuthenticatedUser.fulfilled, (state, action) => ({
         ...state,
-        authenticatedUser: action.payload,
-        message: 'User is authenticated',
-        status: 'succeeded',
+        authenticatedUser: action.payload.user,
+        message: action.payload.message,
+        status: action.payload.status,
       }))
       .addCase(getAuthenticatedUser.rejected, (state, action) => ({
         ...state,

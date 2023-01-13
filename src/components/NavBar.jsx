@@ -19,6 +19,7 @@ import {
 
 import RandomLuxLogo from './RandomLuxLogo';
 import whiteLogo from '../assets/logo-transparent-white.png';
+import { resetCarState } from '../redux/Home/home';
 
 const NavBar = ({ open, handleOpen }) => {
   const [hide, setHide] = useState(false);
@@ -71,9 +72,11 @@ const NavBar = ({ open, handleOpen }) => {
       dispatch(getReservations());
     } else setAuthenticated(false);
   };
+
   const handleSignOut = () => {
     dispatch(signOut());
     dispatch(resetReservationState());
+    dispatch(resetCarState());
     navigate('/');
   };
 

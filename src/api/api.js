@@ -13,7 +13,6 @@ const loginOptions = (user) => ({
 const registerOptions = (user) => ({
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
-  // headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')},
   body: JSON.stringify(user),
 });
 
@@ -66,10 +65,25 @@ const api = {
 
     const { status: code } = response;
 
-    if (code === 200) unsetAuthToken();
-
-    const data = await response.json();
-    return data;
+    if (code === 200) {
+      unsetAuthToken();
+      const data = await response.json();
+      return {
+        user: {},
+        status: 'success',
+        message: data.message,
+      };
+    }
+    if (code === 500) {
+      unsetAuthToken();
+      return {
+        user: {},
+        status: 'expired',
+        error: 'Unauthorized, You must Login or Register',
+        message: 'Session for User has expired',
+      };
+    }
+    return null;
   },
   fetchAuthUser: async () => {
     const response = await fetch(`${baseURL}/users`, {
@@ -78,10 +92,25 @@ const api = {
 
     const { status: code } = response;
 
-    if (code === 401) throw new Error('Unauthorized, You must Login or Register');
-
-    const currentUser = await response.json();
-    return currentUser;
+    if (code === 401) {
+      unsetAuthToken();
+      return {
+        user: {},
+        status: 'expired',
+        error: 'Unauthorized, You must Login or Register',
+        message: 'Session for User has expired',
+      };
+    }
+    if (code === 200) {
+      const currentUser = await response.json();
+      return {
+        user: currentUser,
+        status: 'succeeded',
+        error: null,
+        message: 'User is authenticated',
+      };
+    }
+    return null;
   },
   fetchCars: async () => {
     const response = await fetch(`${baseURL}/cars`);
@@ -109,9 +138,12 @@ const api = {
     return reservations;
   },
   deleteReservation: async (userId, reservationId) => {
-    const response = await fetch(`${baseURL}/users/${userId}/reservations/${reservationId}`, {
-      ...removeReservationOptions(),
-    });
+    const response = await fetch(
+      `${baseURL}/users/${userId}/reservations/${reservationId}`,
+      {
+        ...removeReservationOptions(),
+      },
+    );
     const data = await response.json();
     return data;
   },
