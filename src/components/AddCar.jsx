@@ -28,6 +28,7 @@ const AddCar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const currentUser = useAuthUser();
+
   const handleChange = (e) => {
     const {
       target: { name: input, value, checked },
@@ -39,6 +40,7 @@ const AddCar = () => {
     if (input === 'image') setImage(value);
     if (input === 'available') setAvailable(checked);
   };
+
   document.title = 'ElDorado | AddCar';
 
   const handleAddCar = () => {
@@ -53,12 +55,23 @@ const AddCar = () => {
     dispatch(addCar({ ownerId: currentUser.id, car }));
   };
 
-  useEffect(() => {
+  const checkAuthUser = () => {
+    if (Object.keys(currentUser).length === 0) navigate('/login');
+  };
+
+  const setDefaultImage = () => {
     if (image === '') setImage(defaultImg);
-    if (message === 'Car has been successfully created') {
-      navigate('/delete_car');
-    }
-  }, [image, message]);
+  };
+
+  const navigateDeleteCar = () => {
+    if (message === 'Car has been successfully created') navigate('/delete_car');
+  };
+
+  useEffect(() => {
+    setDefaultImage();
+    navigateDeleteCar();
+    checkAuthUser();
+  }, [image, message, currentUser]);
 
   return (
     <Card className="mt-5 mb-64 max-w-[450px] mx-auto bg-white/90 backdrop-blur-md">

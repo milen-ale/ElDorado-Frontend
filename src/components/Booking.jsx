@@ -46,11 +46,18 @@ const Booking = () => {
     dispatch(bookCar(reservationObject));
   };
 
+  const navigateReservation = () => {
+    if (message === 'Car has been successfully booked') navigate('/reservation');
+  };
+
+  const checkAuthUser = () => {
+    if (Object.keys(currentUser).length === 0) navigate('/login');
+  };
+
   useEffect(() => {
-    if (message === 'Car has been successfully booked') {
-      navigate('/reservation');
-    }
-  }, [message]);
+    navigateReservation();
+    checkAuthUser();
+  }, [message, currentUser]);
 
   document.title = 'ElDorado | Booking';
   return (
@@ -59,7 +66,11 @@ const Booking = () => {
         variant="gradient"
         className="mb-4 grid h-28 place-items-center text-white bg-black/50 backdrop-blur-md"
       >
-        <Typography variant="h3" color="white" className="font-osans uppercase tracking-widest font-light">
+        <Typography
+          variant="h3"
+          color="white"
+          className="font-osans uppercase tracking-widest font-light"
+        >
           Book a Car
         </Typography>
       </CardHeader>

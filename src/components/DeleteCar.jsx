@@ -7,6 +7,7 @@ import {
   Typography,
 } from '@material-tailwind/react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import {
   ownerCars,
   allStatus,
@@ -23,6 +24,7 @@ const DeleteCar = () => {
   const status = useSelector(allStatus);
   const currentUser = useAuthUser();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleDeleteCar = (status, carId) => {
     const car = {
@@ -33,11 +35,18 @@ const DeleteCar = () => {
       dispatch(toggleAvailability({ ownerId: currentUser.id, carId, car }));
     }, 1900);
   };
+
   document.title = 'ElDorado | DeleteCar';
+
+  const checkAuthUser = () => {
+    if (Object.keys(currentUser).length === 0) navigate('/login');
+  };
+
   useEffect(() => {
     dispatch(setMessageEmpty());
     dispatch(getOwnerCars(currentUser.id));
-  }, [userCars.length]);
+    checkAuthUser();
+  }, [userCars.length, currentUser]);
   return (
     <>
       <CardHeader
