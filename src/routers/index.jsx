@@ -8,6 +8,8 @@ import RegisterPage from '../pages/RegisterPage';
 import CarDetails from '../pages/CarDetails';
 import BookingPage from '../pages/BookingPage';
 import ReservationPage from '../pages/ReservationPage';
+import AddCarPage from '../pages/AddCarPage';
+import DeleteCarPage from '../pages/DeleteCarPage';
 import { getCars } from '../redux/Home/home';
 import ProtectedRoute from '../components/ProtectedRoute';
 
@@ -35,6 +37,8 @@ const AppRouter = () => {
           <Route element={<ProtectedRoute />}>
             <Route path="/booking" element={<BookingPage />} />
             <Route path="/reservation" element={<ReservationPage />} />
+            <Route path="/add_car" element={<AddCarPage />} />
+            <Route path="/delete_car" element={<DeleteCarPage />} />
           </Route>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />

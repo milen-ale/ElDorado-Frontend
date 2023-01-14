@@ -25,6 +25,24 @@ const carBookingOptions = (booking) => ({
   body: JSON.stringify(booking),
 });
 
+const addCarOptions = (car) => ({
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: localStorage.getItem('token'),
+  },
+  body: JSON.stringify(car),
+});
+
+const toggleCarAvailabilityOptions = (car) => ({
+  method: 'PATCH',
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: localStorage.getItem('token'),
+  },
+  body: JSON.stringify(car),
+});
+
 const removeReservationOptions = () => ({
   method: 'DELETE',
   headers: { Authorization: localStorage.getItem('token') },
@@ -144,6 +162,29 @@ const api = {
         ...removeReservationOptions(),
       },
     );
+    const data = await response.json();
+    return data;
+  },
+  fetchOwnerCars: async (ownerId) => {
+    const response = await fetch(`${baseURL}/owners/${ownerId}/cars`, {
+      headers: { Authorization: localStorage.getItem('token') },
+    });
+    const cars = await response.json();
+    return cars;
+  },
+  addCar: async (ownerId, car) => {
+    const response = await fetch(`${baseURL}/users/${ownerId}/cars`, {
+      ...addCarOptions({ car }),
+    });
+
+    const data = await response.json();
+    return data;
+  },
+  toggleCarAvailability: async (ownerId, carId, car) => {
+    const response = await fetch(`${baseURL}/users/${ownerId}/cars/${carId}/availability`, {
+      ...toggleCarAvailabilityOptions({ car }),
+    });
+
     const data = await response.json();
     return data;
   },

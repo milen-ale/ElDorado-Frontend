@@ -6,6 +6,8 @@ import {
   HomeIcon,
   CreditCardIcon,
   BookmarkIcon,
+  PlusCircleIcon,
+  MinusCircleIcon,
   ArrowRightOnRectangleIcon,
   UserIcon,
 } from '@heroicons/react/24/outline';
@@ -19,7 +21,7 @@ import {
 
 import RandomLuxLogo from './RandomLuxLogo';
 import whiteLogo from '../assets/logo-transparent-white.png';
-import { resetCarState } from '../redux/Home/home';
+import { resetCarState, getOwnerCars } from '../redux/Home/home';
 
 const NavBar = ({ open, handleOpen }) => {
   const [hide, setHide] = useState(false);
@@ -49,6 +51,18 @@ const NavBar = ({ open, handleOpen }) => {
       icon: <BookmarkIcon className="w-7" />,
       path: '/reservation',
     },
+    {
+      id: 4,
+      name: 'Add Car',
+      icon: <PlusCircleIcon className="w-7" />,
+      path: '/add_car',
+    },
+    {
+      id: 5,
+      name: 'Delete Car',
+      icon: <MinusCircleIcon className="w-7" />,
+      path: '/delete_car',
+    },
   ];
 
   const handleHide = () => {
@@ -70,6 +84,7 @@ const NavBar = ({ open, handleOpen }) => {
     if (isTokenSet) {
       setAuthenticated(true);
       dispatch(getReservations());
+      dispatch(getOwnerCars(currentUser.id));
     } else setAuthenticated(false);
   };
 
@@ -111,7 +126,7 @@ const NavBar = ({ open, handleOpen }) => {
           <img
             src={whiteLogo}
             alt="sidebar-white-logo"
-            className="w-full h-full"
+            className="w-full h-full object-cover"
           />
         </div>
       ) : (

@@ -5,7 +5,6 @@ import {
   CardHeader,
   Typography,
 } from '@material-tailwind/react';
-import { Carousel } from 'antd';
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -66,7 +65,7 @@ const Home = () => {
               />
             </CardHeader>
             <CardBody className="px-2 text-center">
-              <Typography variant="h5" className="mb-2 whitespace-nowrap">
+              <Typography variant="h5" className="mb-2 whitespace-pre-wrap">
                 {car.name}
               </Typography>
             </CardBody>

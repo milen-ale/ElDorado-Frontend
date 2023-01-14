@@ -8,6 +8,7 @@ import {
 import { TrashIcon } from '@heroicons/react/24/outline';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import {
   setMessageEmpty,
   allStatus,
@@ -22,6 +23,7 @@ import ReservationDetail from './ReservationDetail';
 
 const Reservation = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const reservations = useSelector(carReservations);
   const status = useSelector(allStatus);
   const currentUser = useAuthUser();
@@ -35,11 +37,16 @@ const Reservation = () => {
     dispatch(deleteReservation(removeOptions));
   };
 
+  const checkAuthUser = () => {
+    if (Object.keys(currentUser).length === 0) navigate('/login');
+  };
+
   useEffect(() => {
     dispatch(setMessageEmpty(''));
     dispatch(resetCarState());
+    checkAuthUser();
     if (reservations.length === 0) dispatch(getReservations());
-  }, [reservations.length]);
+  }, [reservations.length, currentUser]);
 
   document.title = `ElDorado | Reservations: ${reservations.length}`;
   return status === 'loading' ? (
