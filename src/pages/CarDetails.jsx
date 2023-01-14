@@ -42,7 +42,7 @@ const CarDetails = ({ open }) => {
             {' '}
             /day
           </p>
-          <p className={`text-base max-w-[800px] ${open && 'text-xs'}`}>{carDetails.description}</p>
+          <p className={`text-base w-[420px] ${open && 'text-xs'}`}>{carDetails.description}</p>
           <button onClick={handleReserve} type="button">
             <span className="text-black font-bold bg-amber-500 border px-4 hover:bg-white hover:border-amber-500 hover:text-amber-500 py-3 rounded-sm">
               Reserve
