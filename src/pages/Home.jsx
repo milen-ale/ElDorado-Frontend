@@ -5,6 +5,7 @@ import {
   CardHeader,
   Typography,
 } from '@material-tailwind/react';
+import { Carousel } from 'antd';
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -50,38 +51,40 @@ const Home = () => {
           Latest Models
         </Typography>
       </div>
-      {cars.map((car) => (
-        <Card
-          key={car.id}
-          className="w-full cursor-pointer my-5"
-          onClick={() => navigate(`/car-details/${car.id}`)}
-        >
-          <CardHeader color="amber" className="relative h-56 mx-0.5">
-            <img
-              src={car.image}
-              alt="img-blur-shadow"
-              className="h-full w-full object-cover"
-            />
-          </CardHeader>
-          <CardBody className="px-2 text-center">
-            <Typography variant="h5" className="mb-2 whitespace-nowrap">
-              {car.name}
-            </Typography>
-          </CardBody>
-          <CardFooter
-            divider
-            className="flex items-center justify-between py-3"
+      <div className="Car-Grid grid gap-6">
+        {cars.map((car) => (
+          <Card
+            key={car.id}
+            className="cursor-pointer my-5"
+            onClick={() => navigate(`/car-details/${car.id}`)}
           >
-            <Typography variant="small">
-              $
-              {car.daily_price}
-            </Typography>
-            <Typography variant="small" color="gray" className="flex gap-1">
-              {car.model}
-            </Typography>
-          </CardFooter>
-        </Card>
-      ))}
+            <CardHeader color="amber" className="relative h-56 mx-0.5">
+              <img
+                src={car.image}
+                alt="img-blur-shadow"
+                className="h-full w-full object-cover"
+              />
+            </CardHeader>
+            <CardBody className="px-2 text-center">
+              <Typography variant="h5" className="mb-2 whitespace-nowrap">
+                {car.name}
+              </Typography>
+            </CardBody>
+            <CardFooter
+              divider
+              className="flex items-center justify-between py-3"
+            >
+              <Typography variant="small">
+                $
+                {car.daily_price}
+              </Typography>
+              <Typography variant="small" color="gray" className="flex gap-1">
+                {car.model}
+              </Typography>
+            </CardFooter>
+          </Card>
+        ))}
+      </div>
     </>
   );
 };
