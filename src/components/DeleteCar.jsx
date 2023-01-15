@@ -15,7 +15,7 @@ import {
   getOwnerCars,
   setMessageEmpty,
 } from '../redux/Home/home';
-import { useAuthUser } from '../redux/Auth/useAuthUser';
+import { useAuthUser, useToken } from '../redux/Auth/useAuthUser';
 import Loader from './Loader';
 import Switch from './Switch';
 
@@ -23,6 +23,7 @@ const DeleteCar = () => {
   const userCars = useSelector(ownerCars);
   const status = useSelector(allStatus);
   const currentUser = useAuthUser();
+  const isTokenSet = useToken();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -39,19 +40,19 @@ const DeleteCar = () => {
   document.title = 'ElDorado | DeleteCar';
 
   const checkAuthUser = () => {
-    if (Object.keys(currentUser).length === 0) navigate('/login');
+    if (!isTokenSet) navigate('/login');
   };
 
   useEffect(() => {
     dispatch(setMessageEmpty());
     dispatch(getOwnerCars(currentUser.id));
     checkAuthUser();
-  }, [userCars.length, currentUser]);
+  }, [userCars.length, isTokenSet]);
   return (
     <>
       <CardHeader
         variant="gradient"
-        className="mb-4 grid h-28 place-items-center text-white bg-black/50 backdrop-blur-md"
+        className="sticky top-0 z-40 mb-4 grid h-28 place-items-center text-white bg-black/50 backdrop-blur-md"
       >
         <Typography
           variant="h3"
@@ -97,13 +98,6 @@ const DeleteCar = () => {
                     $
                     {price}
                   </Typography>
-                  {/* <Button
-                    color="amber"
-                    className="text-xs"
-                    onClick={() => handleDeleteCar(available)}
-                  >
-                    {available ? 'Available' : 'Not Available'}
-                  </Button> */}
                   <Switch
                     status={available}
                     carName={name}
@@ -123,6 +117,7 @@ const DeleteCar = () => {
           )}
         </div>
       )}
+
     </>
   );
 };

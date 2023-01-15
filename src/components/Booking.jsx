@@ -15,7 +15,7 @@ import {
   Option,
 } from '@material-tailwind/react';
 import { allMessages, bookCar } from '../redux/Reservations/reservationsSlice';
-import { useAuthUser } from '../redux/Auth/useAuthUser';
+import { useAuthUser, useToken } from '../redux/Auth/useAuthUser';
 import { allCars, car } from '../redux/Home/home';
 
 const Booking = () => {
@@ -23,11 +23,11 @@ const Booking = () => {
   const [returnDate, setReturnDate] = useState(null);
   const currentUser = useAuthUser();
   const cars = useSelector(allCars);
-  const { id: selectedCarId } = useSelector(car);
   const message = useSelector(allMessages);
-  const [carId, setCarId] = useState(selectedCarId || 0);
+  const [carId, setCarId] = useState(useSelector(car).id || 0);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const isTokenSet = useToken();
 
   const handleDateFormat = (date) => moment(dayjs(date).toDate()).format('YYYY-MM-DD');
 
@@ -51,13 +51,13 @@ const Booking = () => {
   };
 
   const checkAuthUser = () => {
-    if (Object.keys(currentUser).length === 0) navigate('/login');
+    if (!isTokenSet) navigate('/login');
   };
 
   useEffect(() => {
     navigateReservation();
     checkAuthUser();
-  }, [message, currentUser]);
+  }, [message, isTokenSet]);
 
   document.title = 'ElDorado | Booking';
   return (

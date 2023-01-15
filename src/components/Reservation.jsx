@@ -16,7 +16,7 @@ import {
   getReservations,
   deleteReservation,
 } from '../redux/Reservations/reservationsSlice';
-import { useAuthUser } from '../redux/Auth/useAuthUser';
+import { useAuthUser, useToken } from '../redux/Auth/useAuthUser';
 import { resetCarState } from '../redux/Home/home';
 import Loader from './Loader';
 import ReservationDetail from './ReservationDetail';
@@ -27,6 +27,7 @@ const Reservation = () => {
   const reservations = useSelector(carReservations);
   const status = useSelector(allStatus);
   const currentUser = useAuthUser();
+  const isTokenSet = useToken();
 
   const handleRemoveReservation = (reservationId) => {
     const removeOptions = {
@@ -38,7 +39,7 @@ const Reservation = () => {
   };
 
   const checkAuthUser = () => {
-    if (Object.keys(currentUser).length === 0) navigate('/login');
+    if (!isTokenSet) navigate('/login');
   };
 
   useEffect(() => {
@@ -46,7 +47,7 @@ const Reservation = () => {
     dispatch(resetCarState());
     checkAuthUser();
     if (reservations.length === 0) dispatch(getReservations());
-  }, [reservations.length, currentUser]);
+  }, [reservations.length, isTokenSet]);
 
   document.title = `ElDorado | Reservations: ${reservations.length}`;
   return status === 'loading' ? (
