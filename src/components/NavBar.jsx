@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useNavigate, NavLink } from 'react-router-dom';
+import { useNavigate, NavLink, useLocation } from 'react-router-dom';
 import {
   ChevronLeftIcon,
   HomeIcon,
@@ -31,6 +31,7 @@ const NavBar = ({ open, handleOpen }) => {
   const dispatch = useDispatch();
   const status = useSelector(allStatus);
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const isTokenSet = useToken();
   const menu = [
@@ -81,6 +82,10 @@ const NavBar = ({ open, handleOpen }) => {
     }
   };
 
+  const handleCarReset = () => {
+    if (pathname !== '/booking') dispatch(resetCarState());
+  };
+
   const handleAuth = () => {
     if (isTokenSet) {
       setAuthenticated(true);
@@ -92,17 +97,18 @@ const NavBar = ({ open, handleOpen }) => {
   const handleSignOut = () => {
     dispatch(signOut());
     dispatch(resetReservationState());
-    dispatch(resetCarState());
+    handleCarReset();
     navigate('/');
   };
 
   useEffect(() => {
     handleAuth();
+    handleCarReset();
     const handleResize = () => setWidth(window.innerWidth);
     window.addEventListener('resize', handleResize);
     hideSidebar();
     return () => window.removeEventListener('resize', handleResize);
-  }, [isTokenSet, width]);
+  }, [isTokenSet, width, pathname]);
 
   return (
     <div
