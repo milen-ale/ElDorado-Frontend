@@ -13,7 +13,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { addCar, allMessages } from '../redux/Home/home';
-import { useAuthUser } from '../redux/Auth/useAuthUser';
+import { useAuthUser, useToken } from '../redux/Auth/useAuthUser';
 
 const AddCar = () => {
   const defaultImg = 'https://www.fluttercampus.com/img/4by3.webp';
@@ -27,6 +27,7 @@ const AddCar = () => {
   const message = useSelector(allMessages);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const isTokenSet = useToken();
   const currentUser = useAuthUser();
 
   const handleChange = (e) => {
@@ -56,7 +57,7 @@ const AddCar = () => {
   };
 
   const checkAuthUser = () => {
-    if (Object.keys(currentUser).length === 0) navigate('/login');
+    if (!isTokenSet) navigate('/login');
   };
 
   const setDefaultImage = () => {
@@ -71,7 +72,7 @@ const AddCar = () => {
     setDefaultImage();
     navigateDeleteCar();
     checkAuthUser();
-  }, [image, message, currentUser]);
+  }, [image, message, isTokenSet]);
 
   return (
     <Card className="mt-5 mb-64 max-w-[450px] mx-auto bg-white/90 backdrop-blur-md">
