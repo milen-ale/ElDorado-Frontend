@@ -17,7 +17,6 @@ import {
   deleteReservation,
 } from '../redux/Reservations/reservationsSlice';
 import { useAuthUser, useToken } from '../redux/Auth/useAuthUser';
-import { resetCarState } from '../redux/Home/home';
 import Loader from './Loader';
 import ReservationDetail from './ReservationDetail';
 
@@ -44,7 +43,6 @@ const Reservation = () => {
 
   useEffect(() => {
     dispatch(setMessageEmpty(''));
-    dispatch(resetCarState());
     checkAuthUser();
     if (reservations.length === 0) dispatch(getReservations());
   }, [reservations.length, isTokenSet]);

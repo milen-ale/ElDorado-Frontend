@@ -71,10 +71,26 @@ const api = {
 
     const { status: code } = response;
 
-    if (code === 200) setAuthToken(response);
+    if (code === 200) {
+      setAuthToken(response);
+      const { data, message } = await response.json();
+      return {
+        user: data,
+        status: 'succeeded',
+        message,
+      };
+    }
 
-    const data = await response.json();
-    return data;
+    if (code === 401) {
+      return {
+        user: {},
+        status: 'unauthorized',
+        error: 'Unauthorized, You must Login or Register',
+        message: 'Login failed, Please check your email and password',
+      };
+    }
+
+    return null;
   },
   logout: async () => {
     const response = await fetch(`${baseURL}/logout`, {
@@ -88,7 +104,7 @@ const api = {
       const data = await response.json();
       return {
         user: {},
-        status: 'success',
+        status: 'succeeded',
         message: data.message,
       };
     }
@@ -181,9 +197,12 @@ const api = {
     return data;
   },
   toggleCarAvailability: async (ownerId, carId, car) => {
-    const response = await fetch(`${baseURL}/users/${ownerId}/cars/${carId}/availability`, {
-      ...toggleCarAvailabilityOptions({ car }),
-    });
+    const response = await fetch(
+      `${baseURL}/users/${ownerId}/cars/${carId}/availability`,
+      {
+        ...toggleCarAvailabilityOptions({ car }),
+      },
+    );
 
     const data = await response.json();
     return data;
