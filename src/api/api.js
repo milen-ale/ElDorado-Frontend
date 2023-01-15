@@ -59,7 +59,9 @@ const api = {
       ...registerOptions({ user }),
     });
 
-    setAuthToken(response);
+    const { status: code } = response;
+
+    if (code === 200) setAuthToken(response);
 
     const data = await response.json();
     return data;
