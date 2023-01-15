@@ -11,16 +11,16 @@ import {
   ArrowRightOnRectangleIcon,
   UserIcon,
 } from '@heroicons/react/24/outline';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useToken, useAuthUser } from '../redux/Auth/useAuthUser';
-import { signOut } from '../redux/Auth/authSlice';
+import { signOut, allStatus } from '../redux/Auth/authSlice';
 import {
   getReservations,
   resetReservationState,
 } from '../redux/Reservations/reservationsSlice';
-
 import RandomLuxLogo from './RandomLuxLogo';
 import whiteLogo from '../assets/logo-transparent-white.png';
+import { Dots } from './Loader';
 import { resetCarState, getOwnerCars } from '../redux/Home/home';
 
 const NavBar = ({ open, handleOpen }) => {
@@ -29,6 +29,7 @@ const NavBar = ({ open, handleOpen }) => {
   const [authenticated, setAuthenticated] = useState(false);
   const currentUser = useAuthUser();
   const dispatch = useDispatch();
+  const status = useSelector(allStatus);
   const navigate = useNavigate();
 
   const isTokenSet = useToken();
@@ -147,7 +148,7 @@ const NavBar = ({ open, handleOpen }) => {
           >
             <UserIcon className="w-7" />
             <span className={`${!open && 'hidden'} text-black`}>
-              {currentUser.name}
+              {status === 'loading' ? <Dots /> : currentUser.name}
             </span>
           </span>
         )}
@@ -193,14 +194,14 @@ const NavBar = ({ open, handleOpen }) => {
               to="/login"
               className={({ isActive }) => `${
                 isActive && 'bg-amber-600/90 rounded-md '
-              } flex gap-x-4 text-sm text-white items-center ${
+              } group flex gap-x-4 text-sm text-white items-center ${
                 !open
                   && 'justify-center w-max p-1 mx-auto transition-[display] duration-100'
               } cursor-pointer p-3 my-2 hover:bg-amber-600/90 hover:text-black hover:rounded-md ${
                 hide && 'hidden duration-150'
               }`}
             >
-              <ArrowRightOnRectangleIcon className="w-7" />
+              <ArrowRightOnRectangleIcon className="w-7 group-hover:translate-x-0.5 transition duration-300" />
               <span className={`${!open && 'hidden'}`}>Login</span>
             </NavLink>
           )}

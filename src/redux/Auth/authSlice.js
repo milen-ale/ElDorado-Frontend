@@ -9,7 +9,7 @@ const GET_AUTH_USER = 'GET_AUTH_USER';
 
 const initialState = {
   authenticatedUser: {},
-  status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
+  status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed' | 'unauthorized' | 'expired'
   message: '',
   error: null,
 };
@@ -78,9 +78,9 @@ const authSlice = createSlice({
       }))
       .addCase(signIn.fulfilled, (state, action) => ({
         ...state,
-        authenticatedUser: action.payload.data,
+        authenticatedUser: action.payload.user,
         message: action.payload.message,
-        status: 'succeeded',
+        status: action.payload.status,
       }))
       .addCase(signIn.rejected, (state, action) => ({
         ...state,

@@ -47,7 +47,7 @@ const Login = () => {
     <Card className="mt-5 max-w-sm mx-auto bg-white/90 backdrop-blur-md">
       <CardHeader
         variant="gradient"
-        className="bg-amber-500/90 mb-4 grid h-28 place-items-center"
+        className="bg-amber-500 mb-4 grid h-28 place-items-center"
       >
         <Typography variant="h3" color="white" className="font-osans uppercase tracking-widest font-light">
           Login
