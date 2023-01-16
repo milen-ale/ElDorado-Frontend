@@ -9,11 +9,14 @@ import Booking from '../components/Booking';
 describe('Booking component', () => {
   test('Should render the proper booking component', () => {
     const booking = render(
-      <Provider store={store}>
-        <Router>
-          <Booking />
-        </Router>
-      </Provider>,
+      <React.StrictMode>
+        <Provider store={store}>
+          <Router>
+            <Booking />
+          </Router>
+        </Provider>
+        ,
+      </React.StrictMode>,
     );
     expect(booking).toMatchSnapshot();
   });
