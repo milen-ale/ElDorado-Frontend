@@ -59,7 +59,9 @@ const api = {
       ...registerOptions({ user }),
     });
 
-    setAuthToken(response);
+    const { status: code } = response;
+
+    if (code === 200) setAuthToken(response);
 
     const data = await response.json();
     return data;
@@ -192,8 +194,16 @@ const api = {
     const response = await fetch(`${baseURL}/users/${ownerId}/cars`, {
       ...addCarOptions({ car }),
     });
-
     const data = await response.json();
+    const { status: code } = response;
+    if (code === 422) {
+      return {
+        status: 'failed',
+        data: car,
+        message: data.message,
+      };
+    }
+
     return data;
   },
   toggleCarAvailability: async (ownerId, carId, car) => {

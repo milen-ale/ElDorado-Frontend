@@ -21,33 +21,43 @@ const CarDetails = ({ open }) => {
   }, []);
   return (
     <>
-      <div className="mt-10 flex items-center smax:flex-col gap-3">
-        <img
-          className="w-[1000px] min-w-[270px] rounded-md self-stretch object-cover"
-          src={carDetails.image}
-          alt={carDetails.name}
-        />
-        <div className="flex flex-col gap-4 self-stretch">
-          <h1 className="text-2xl font-semibold self-end justify-self-start font-osans">
-            {carDetails.name}
-          </h1>
-
-          <p className="font-bold bg-gray-400 text-center px-7">
-            {carDetails.model}
-          </p>
-
-          <p className=" bg-white text-black text-center font-bold px-7">
-            $
-            {carDetails.daily_price}
-            {' '}
-            /day
-          </p>
-          <p className={`text-base w-[420px] ${open && 'text-xs'}`}>{carDetails.description}</p>
-          <button onClick={handleReserve} type="button">
-            <span className="text-black font-bold bg-amber-500 border px-4 hover:bg-white hover:border-amber-500 hover:text-amber-500 py-3 rounded-sm">
-              Reserve
-            </span>
-          </button>
+      <div className="overflow-auto mx-auto px-4 py-5 bg-gray-200 rounded">
+        <div className="md:flex">
+          <div className="mr-4">
+            <h1 className="text-4xl text-black font-bold self-end justify-self-start font-osans pl-2 mb-12 border-l-4 border-amber-500">{carDetails.name}</h1>
+            <img className="w-[1000px] min-w-[270px] rounded-lg object-cover self-stretch" src={carDetails.image} alt="Modern building architecture" />
+          </div>
+          <div className="flex flex-col">
+            <div className="mx-auto mt-2 text-2xl text-black font-bold self-end justify-self-start font-osans bg-amber-300 px-6 py-2 max-w-fit rounded">
+              $
+              {carDetails.daily_price}
+              <sub className="font-features subs font-normal">/per day</sub>
+            </div>
+            <p className="text-xs text-black font-light text-center">Included Taxes and Checkup</p>
+            <div className="text-black bg-white border border-gray-200 p-3 my-2 drop-shadow">
+              <h2 className="text-xl border-l-2 border-amber-500 font-bold p-1 mb-4 bg-amber-50">SPECIFICATIONS</h2>
+              <p className="">
+                <span className="font-semibold ">Make:</span>
+                {' '}
+                {carDetails.name}
+              </p>
+              <p className="text-gray ">
+                <span className="font-semibold ">Model:</span>
+                {' '}
+                {carDetails.model}
+              </p>
+              <p className={`text-gray text-base max-w-[420px] ${open}`}>
+                <span className="font-semibold">Description:</span>
+                {' '}
+                {carDetails.description}
+              </p>
+            </div>
+            <button className="my-3 mx-auto self-center" onClick={handleReserve} type="button">
+              <span className="text-black font-bold bg-amber-500 border px-4  hover:bg-amber-600 py-3 rounded-sm my-2">
+                Reserve
+              </span>
+            </button>
+          </div>
         </div>
       </div>
     </>

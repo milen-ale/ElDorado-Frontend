@@ -12,7 +12,7 @@
     "eslint:fix": "npx eslint \"**/*.{js,jsx}\" --fix",
     "stylelint": "npx stylelint \"**/*.{css,scss}\"",
     "stylelint:fix": "npx stylelint \"**/*.{css,scss}\" --fix",
-    "carousel:install": "npm i --force react-grid-carousel" 
+    "carousel:install": "npm i --force react-grid-carousel"
   },
   "eslintConfig": {
     "extends": [
@@ -26,6 +26,7 @@
     "@reduxjs/toolkit": "^1.9.1",
     "antd": "^5.1.4",
     "dayjs": "^1.11.7",
+    "formik": "^2.2.9",
     "moment": "^2.29.4",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
@@ -34,7 +35,8 @@
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.6.1",
     "react-scripts": "^5.0.1",
-    "redux-logger": "^3.0.6"
+    "redux-logger": "^3.0.6",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",

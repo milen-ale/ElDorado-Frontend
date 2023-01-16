@@ -65,7 +65,7 @@ const authSlice = createSlice({
         ...state,
         authenticatedUser: action.payload.data,
         message: action.payload.message,
-        status: 'succeeded',
+        status: action.payload.status === 200 ? 'succeeded' : 'failed',
       }))
       .addCase(signUp.rejected, (state, action) => ({
         ...state,
@@ -122,5 +122,6 @@ const authSlice = createSlice({
 
 export const authenticatedUser = (state) => state.auth.authenticatedUser;
 export const allStatus = (state) => state.auth.status;
+export const allMessages = (state) => state.auth.message;
 
 export default authSlice.reducer;
