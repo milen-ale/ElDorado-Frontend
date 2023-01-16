@@ -45,7 +45,7 @@ const DeleteCar = () => {
 
   useEffect(() => {
     dispatch(setMessageEmpty());
-    dispatch(getOwnerCars(currentUser.id));
+    if (userCars.length === 0) dispatch(getOwnerCars(currentUser.id));
     checkAuthUser();
   }, [userCars.length, isTokenSet]);
   return (
@@ -117,7 +117,6 @@ const DeleteCar = () => {
           )}
         </div>
       )}
-
     </>
   );
 };

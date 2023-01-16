@@ -115,13 +115,13 @@ const carsSlice = createSlice({
       .addCase(addCar.fulfilled, (state, action) => ({
         ...state,
         cars: [
-          ...(action.payload.data.available && action.payload.status === 200
+          ...(action.payload.data.available && action.payload.status === 201
             ? [action.payload.data]
             : []),
           ...state.cars,
         ],
         ownerCars: [
-          ...(action.payload.status === 200 ? [action.payload.data] : []),
+          ...(action.payload.status === 201 ? [action.payload.data] : []),
           ...state.ownerCars,
         ],
         message: action.payload.message,
