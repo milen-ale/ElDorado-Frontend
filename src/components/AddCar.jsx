@@ -44,7 +44,7 @@ const AddCar = () => {
       .min(4, 'Too Short!')
       .max(250, 'Too Long!')
       .matches(
-        /^(?=.{4,50}$)(?![a-z])(?!.*[_.]{2})[a-zA-Z ]+(?<![_.])$/,
+        /^(?=.{4,50}$)(?![a-z])(?!.*[_.]{2})[a-zA-Z0-9 ]+(?<![_.])$/,
         'Name should have at least 3 characters and should not any number!',
       )
       .required('Name is required!'),
