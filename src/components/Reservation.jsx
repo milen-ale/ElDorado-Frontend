@@ -49,9 +49,7 @@ const Reservation = () => {
 
   document.title = `ElDorado | Reservations: ${reservations.length}`;
   return status === 'loading' ? (
-    <div className="flex items-center justify-center h-96 w-[75vw]">
-      <Loader />
-    </div>
+    <Loader />
   ) : (
     <div className="max-w-sm mt-3 mx-auto flex flex-col gap-y-12 h-[95%]">
       <div>

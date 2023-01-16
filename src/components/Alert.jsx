@@ -23,7 +23,7 @@ const Alert = ({ message }) => {
   return (
     <>
       <MaterialAlert
-        className="mb-12 p-2 ml-2"
+        className="mb-12 ml-2"
         show={show}
         color="red"
         dismissible={{
