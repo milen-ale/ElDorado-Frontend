@@ -25,7 +25,7 @@ const CarDetails = ({ open }) => {
         <div className="md:flex">
           <div className="mr-4">
             <h1 className="text-4xl text-black font-bold self-end justify-self-start font-osans pl-2 mb-12 border-l-4 border-amber-500">{carDetails.name}</h1>
-            <img className="w-[1000px] min-w-[270px] rounded-lg self-stretch" src={carDetails.image} alt="Modern building architecture" />
+            <img className="w-[1000px] min-w-[270px] rounded-lg object-cover self-stretch" src={carDetails.image} alt="Modern building architecture" />
           </div>
           <div className="flex flex-col">
             <div className="mx-auto mt-2 text-2xl text-black font-bold self-end justify-self-start font-osans bg-amber-300 px-6 py-2 max-w-fit rounded">
