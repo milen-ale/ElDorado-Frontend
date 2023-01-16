@@ -6,78 +6,180 @@ Object {
   "baseElement": <body>
     <div>
       <div
-        class="mt-10 flex items-center smax:flex-col gap-3"
+        class="overflow-auto mx-auto px-4 py-5 bg-gray-200 rounded"
       >
-        <img
-          class="w-[1000px] min-w-[270px] rounded-md self-stretch object-cover"
-        />
         <div
-          class="flex flex-col gap-4 self-stretch"
+          class="md:flex"
         >
-          <h1
-            class="text-2xl font-semibold self-end justify-self-start font-osans"
-          />
-          <p
-            class="font-bold bg-gray-400 text-center px-7"
-          />
-          <p
-            class=" bg-white text-black text-center font-bold px-7"
+          <div
+            class="mr-4"
           >
-            $
-             
-            /day
-          </p>
-          <p
-            class="text-base w-[420px] undefined"
-          />
-          <button
-            type="button"
+            <h1
+              class="text-4xl text-black font-bold self-end justify-self-start font-osans pl-2 mb-12 border-l-4 border-amber-500"
+            />
+            <img
+              alt="Modern building architecture"
+              class="w-[1000px] min-w-[270px] rounded-lg object-cover self-stretch"
+            />
+          </div>
+          <div
+            class="flex flex-col"
           >
-            <span
-              class="text-black font-bold bg-amber-500 border px-4 hover:bg-white hover:border-amber-500 hover:text-amber-500 py-3 rounded-sm"
+            <div
+              class="mx-auto mt-2 text-2xl text-black font-bold self-end justify-self-start font-osans bg-amber-300 px-6 py-2 max-w-fit rounded"
             >
-              Reserve
-            </span>
-          </button>
+              $
+              <sub
+                class="font-features subs font-normal"
+              >
+                /per day
+              </sub>
+            </div>
+            <p
+              class="text-xs text-black font-light text-center"
+            >
+              Included Taxes and Checkup
+            </p>
+            <div
+              class="text-black bg-white border border-gray-200 p-3 my-2 drop-shadow"
+            >
+              <h2
+                class="text-xl border-l-2 border-amber-500 font-bold p-1 mb-4 bg-amber-50"
+              >
+                SPECIFICATIONS
+              </h2>
+              <p
+                class=""
+              >
+                <span
+                  class="font-semibold "
+                >
+                  Make:
+                </span>
+                 
+              </p>
+              <p
+                class="text-gray "
+              >
+                <span
+                  class="font-semibold "
+                >
+                  Model:
+                </span>
+                 
+              </p>
+              <p
+                class="text-gray text-base max-w-[420px] true"
+              >
+                <span
+                  class="font-semibold"
+                >
+                  Description:
+                </span>
+                 
+              </p>
+            </div>
+            <button
+              class="my-3 mx-auto self-center"
+              type="button"
+            >
+              <span
+                class="text-black font-bold bg-amber-500 border px-4  hover:bg-amber-600 py-3 rounded-sm my-2"
+              >
+                Reserve
+              </span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </body>,
   "container": <div>
     <div
-      class="mt-10 flex items-center smax:flex-col gap-3"
+      class="overflow-auto mx-auto px-4 py-5 bg-gray-200 rounded"
     >
-      <img
-        class="w-[1000px] min-w-[270px] rounded-md self-stretch object-cover"
-      />
       <div
-        class="flex flex-col gap-4 self-stretch"
+        class="md:flex"
       >
-        <h1
-          class="text-2xl font-semibold self-end justify-self-start font-osans"
-        />
-        <p
-          class="font-bold bg-gray-400 text-center px-7"
-        />
-        <p
-          class=" bg-white text-black text-center font-bold px-7"
+        <div
+          class="mr-4"
         >
-          $
-           
-          /day
-        </p>
-        <p
-          class="text-base w-[420px] undefined"
-        />
-        <button
-          type="button"
+          <h1
+            class="text-4xl text-black font-bold self-end justify-self-start font-osans pl-2 mb-12 border-l-4 border-amber-500"
+          />
+          <img
+            alt="Modern building architecture"
+            class="w-[1000px] min-w-[270px] rounded-lg object-cover self-stretch"
+          />
+        </div>
+        <div
+          class="flex flex-col"
         >
-          <span
-            class="text-black font-bold bg-amber-500 border px-4 hover:bg-white hover:border-amber-500 hover:text-amber-500 py-3 rounded-sm"
+          <div
+            class="mx-auto mt-2 text-2xl text-black font-bold self-end justify-self-start font-osans bg-amber-300 px-6 py-2 max-w-fit rounded"
           >
-            Reserve
-          </span>
-        </button>
+            $
+            <sub
+              class="font-features subs font-normal"
+            >
+              /per day
+            </sub>
+          </div>
+          <p
+            class="text-xs text-black font-light text-center"
+          >
+            Included Taxes and Checkup
+          </p>
+          <div
+            class="text-black bg-white border border-gray-200 p-3 my-2 drop-shadow"
+          >
+            <h2
+              class="text-xl border-l-2 border-amber-500 font-bold p-1 mb-4 bg-amber-50"
+            >
+              SPECIFICATIONS
+            </h2>
+            <p
+              class=""
+            >
+              <span
+                class="font-semibold "
+              >
+                Make:
+              </span>
+               
+            </p>
+            <p
+              class="text-gray "
+            >
+              <span
+                class="font-semibold "
+              >
+                Model:
+              </span>
+               
+            </p>
+            <p
+              class="text-gray text-base max-w-[420px] true"
+            >
+              <span
+                class="font-semibold"
+              >
+                Description:
+              </span>
+               
+            </p>
+          </div>
+          <button
+            class="my-3 mx-auto self-center"
+            type="button"
+          >
+            <span
+              class="text-black font-bold bg-amber-500 border px-4  hover:bg-amber-600 py-3 rounded-sm my-2"
+            >
+              Reserve
+            </span>
+          </button>
+        </div>
       </div>
     </div>
   </div>,
