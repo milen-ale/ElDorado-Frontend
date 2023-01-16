@@ -9,11 +9,13 @@ import CarDetails from '../pages/CarDetails';
 describe('Car detail page', () => {
   test('Should render the proper details page for a car', () => {
     const carDetail = render(
-      <Provider store={store}>
-        <Router>
-          <CarDetails />
-        </Router>
-      </Provider>,
+      <React.StrictMode>
+        <Provider store={store}>
+          <Router>
+            <CarDetails />
+          </Router>
+        </Provider>
+      </React.StrictMode>,
     );
     expect(carDetail).toMatchSnapshot();
   });
