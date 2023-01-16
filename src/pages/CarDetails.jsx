@@ -21,20 +21,20 @@ const CarDetails = ({ open }) => {
   }, []);
   return (
     <>
-      <div className="overflow-auto mx-auto px-2 py-5 bg-gray-200 rounded">
+      <div className="overflow-auto mx-auto px-4 py-5 bg-gray-200 rounded">
         <div className="md:flex">
-          <div className="">
+          <div className="mr-4">
             <h1 className="text-4xl text-black font-bold self-end justify-self-start font-osans pl-2 mb-12 border-l-4 border-amber-500">{carDetails.name}</h1>
             <img className="w-[1000px] min-w-[270px] rounded-lg self-stretch" src={carDetails.image} alt="Modern building architecture" />
           </div>
-          <div className="px-8 flex flex-col">
+          <div className="flex flex-col">
             <div className="mx-auto mt-2 text-2xl text-black font-bold self-end justify-self-start font-osans bg-amber-300 px-6 py-2 max-w-fit rounded">
               $
               {carDetails.daily_price}
               <sub className="font-features subs font-normal">/per day</sub>
             </div>
             <p className="text-xs text-black font-light text-center">Included Taxes and Checkup</p>
-            <div className="text-black bg-white border border-gray-200 p-3 my-2 overflow-auto drop-shadow">
+            <div className="text-black bg-white border border-gray-200 p-3 my-2 drop-shadow">
               <h2 className="text-xl border-l-2 border-amber-500 font-bold p-1 mb-4 bg-amber-50">SPECIFICATIONS</h2>
               <p className="">
                 <span className="font-semibold ">Make:</span>
@@ -46,7 +46,7 @@ const CarDetails = ({ open }) => {
                 {' '}
                 {carDetails.model}
               </p>
-              <p className={`text-gray text-base w-[420px] ${open}`}>
+              <p className={`text-gray text-base max-w-[420px] ${open}`}>
                 <span className="font-semibold">Description:</span>
                 {' '}
                 {carDetails.description}
