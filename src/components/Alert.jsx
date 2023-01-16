@@ -6,7 +6,7 @@ const Alert = ({ message }) => {
   const [show, setShow] = useState(true);
   setTimeout(() => {
     setShow(false);
-  }, 5000);
+  }, 6000);
 
   const filterMessage = (msg) => {
     const fm = [
