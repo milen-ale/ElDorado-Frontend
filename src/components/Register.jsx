@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 import {
@@ -10,38 +10,56 @@ import {
   Input,
   Button,
 } from '@material-tailwind/react';
-import { authenticatedUser, signUp } from '../redux/Auth/authSlice';
+import {
+  Field, Form, Formik, ErrorMessage,
+} from 'formik';
+import * as Yup from 'yup';
+import {
+  authenticatedUser,
+  signUp,
+  allMessages,
+  allStatus,
+} from '../redux/Auth/authSlice';
 import { useToken } from '../redux/Auth/useAuthUser';
+import Alert from './Alert';
 
 const Register = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordConfirmation, setPasswordConfirmation] = useState('');
+  const initialValues = {
+    name: '',
+    email: '',
+    password: '',
+    passwordConfirmation: '',
+  };
 
+  const SignupSchema = Yup.object().shape({
+    name: Yup.string()
+      .min(2, 'Too Short!')
+      .max(50, 'Too Long!')
+      .matches(
+        /^(?=.{4,50}$)(?![a-z])(?!.*[_.]{2})[a-zA-Z ]+(?<![_.])$/,
+        'Name should have at least 3 characters and should not any number!',
+      )
+      .required('Name is required!'),
+    email: Yup.string().required('Email is required!').email('Invalid Email!'),
+    password: Yup.string()
+      .required('Password is required!')
+      .matches(
+        /^[a-zA-Z0-9!@#$%^&* ]{6,20}$/,
+        'Password must contain at least 6 characters!',
+      ),
+    passwordConfirmation: Yup.string()
+      .oneOf([Yup.ref('password'), null], 'Password not match!')
+      .required('Confirm Password is required!'),
+  });
   const currentUser = useSelector(authenticatedUser);
+  const message = useSelector(allMessages);
+  const status = useSelector(allStatus);
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
   const isTokenSet = useToken();
 
-  const handleChange = (e) => {
-    const {
-      target: { name: input, value },
-    } = e;
-    if (input === 'name') setName(value);
-    if (input === 'email') setEmail(value);
-    if (input === 'password') setPassword(value);
-    if (input === 'passwordConfirmation') setPasswordConfirmation(value);
-  };
-
-  const handleSignUp = () => {
-    const user = {
-      name,
-      email,
-      password,
-      passwordConfirmation,
-    };
+  const handleSignUp = (user) => {
     dispatch(signUp(user));
   };
 
@@ -51,68 +69,122 @@ const Register = () => {
 
   document.title = 'ElDorado | Register';
   return (
-    <Card className="w-96 mt-5 mx-auto bg-white/90 backdrop-blur-md">
-      <CardHeader
-        variant="gradient"
-        color="amber"
-        className="mb-4 grid h-28 place-items-center"
-      >
-        <Typography variant="h3" color="white" className="font-osans uppercase tracking-widest font-light">
-          Register
-        </Typography>
-      </CardHeader>
-      <CardBody className="flex flex-col gap-4">
-        <Input
-          color="amber"
-          onChange={handleChange}
-          name="name"
-          label="Name"
-          size="lg"
-        />
-        <Input
-          color="amber"
-          onChange={handleChange}
-          name="email"
-          label="Email"
-          size="lg"
-        />
-        <Input
-          color="amber"
-          onChange={handleChange}
-          type="password"
-          name="password"
-          label="Password"
-          size="lg"
-        />
-        <Input
-          color="amber"
-          onChange={handleChange}
-          type="password"
-          name="passwordConfirmation"
-          label="Confirm Password"
-          size="lg"
-        />
-      </CardBody>
-      <CardFooter className="pt-0">
-        <Button
-          color="amber"
-          onClick={handleSignUp}
+    <>
+      {status === 'failed' && <Alert message={message} />}
+      <Card className="w-96 mt-5 mx-auto bg-white/90 backdrop-blur-md">
+        <CardHeader
           variant="gradient"
-          fullWidth
+          color="amber"
+          className="mb-4 grid h-28 place-items-center"
         >
-          Sign Up
-        </Button>
-        <Typography variant="small" className="mt-6 flex justify-center">
-          Have have an account?
-          <NavLink
-            to="/login"
-            className="ml-1 font-bold hover:text-gray-600 text-amber-700"
+          <Typography
+            variant="h3"
+            color="white"
+            className="font-osans uppercase tracking-widest font-light"
           >
-            Sign in
-          </NavLink>
-        </Typography>
-      </CardFooter>
-    </Card>
+            Register
+          </Typography>
+        </CardHeader>
+        <Formik
+          initialValues={initialValues}
+          onSubmit={handleSignUp}
+          validationSchema={SignupSchema}
+        >
+          {({
+            errors, touched, dirty, isValid,
+          }) => (
+            <Form>
+              <CardBody className="flex flex-col gap-4">
+                <Field
+                  as={Input}
+                  color="amber"
+                  name="name"
+                  label="Name"
+                  size="lg"
+                  error={Boolean(errors.name) && Boolean(touched.name)}
+                />
+                <ErrorMessage
+                  name="name"
+                  render={(msg) => (
+                    <span className="text-xs text-gray-500">{msg}</span>
+                  )}
+                />
+                <Field
+                  as={Input}
+                  color="amber"
+                  name="email"
+                  label="Email"
+                  size="lg"
+                  error={Boolean(errors.email) && Boolean(touched.email)}
+                />
+                <ErrorMessage
+                  name="email"
+                  render={(msg) => (
+                    <span className="text-xs text-gray-500">{msg}</span>
+                  )}
+                />
+                <Field
+                  as={Input}
+                  color="amber"
+                  type="password"
+                  name="password"
+                  label="Password"
+                  size="lg"
+                  error={Boolean(errors.password) && Boolean(touched.password)}
+                />
+                <ErrorMessage
+                  name="password"
+                  render={(msg) => (
+                    <span className="text-xs text-gray-500">{msg}</span>
+                  )}
+                />
+                <Field
+                  as={Input}
+                  color="amber"
+                  type="password"
+                  name="passwordConfirmation"
+                  label="Confirm Password"
+                  size="lg"
+                  error={
+                    Boolean(errors.passwordConfirmation)
+                    && Boolean(touched.passwordConfirmation)
+                  }
+                />
+                <ErrorMessage
+                  name="passwordConfirmation"
+                  render={(msg) => (
+                    <span className="text-xs text-gray-500">{msg}</span>
+                  )}
+                />
+              </CardBody>
+              <CardFooter className="pt-0">
+                <Button
+                  color="amber"
+                  variant="gradient"
+                  fullWidth
+                  type="submit"
+                  disabled={!isValid || !dirty}
+                >
+                  Sign Up
+                </Button>
+                <Typography
+                  variant="small"
+                  className="mt-6 flex justify-center"
+                >
+                  Have have an account?
+                  <NavLink
+                    to="/login"
+                    className="ml-1 font-bold hover:text-gray-600 text-amber-700"
+                  >
+                    Sign in
+                  </NavLink>
+                </Typography>
+              </CardFooter>
+            </Form>
+          )}
+        </Formik>
+      </Card>
+    </>
   );
 };
 

@@ -77,7 +77,7 @@ const Reservation = () => {
             pickup_date: pickupDate,
             return_date: returnDate,
             car: {
-              name: carName, model, image, daily_price: dailyPrice,
+              name: carName, model, image, daily_price: dailyPrice, available,
             },
           }) => (
             <Card key={reservationId} className="max-w-sm">
@@ -94,6 +94,7 @@ const Reservation = () => {
                   pickupDate={pickupDate}
                   returnDate={returnDate}
                   model={model}
+                  available={available}
                 />
               </CardBody>
               <CardFooter
