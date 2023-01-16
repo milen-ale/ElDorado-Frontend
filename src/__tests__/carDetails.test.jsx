@@ -12,7 +12,7 @@ describe('Car detail page', () => {
       <React.StrictMode>
         <Provider store={store}>
           <Router>
-            <CarDetails />
+            <CarDetails open />
           </Router>
         </Provider>
       </React.StrictMode>,
