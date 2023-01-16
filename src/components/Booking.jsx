@@ -14,9 +14,14 @@ import {
   Select,
   Option,
 } from '@material-tailwind/react';
-import { allMessages, bookCar } from '../redux/Reservations/reservationsSlice';
+import {
+  allMessages,
+  bookCar,
+  allStatus,
+} from '../redux/Reservations/reservationsSlice';
 import { useAuthUser, useToken } from '../redux/Auth/useAuthUser';
 import { allCars, car } from '../redux/Home/home';
+import Alert from './Alert';
 
 const Booking = () => {
   const [pickupDate, setPickupDate] = useState(null);
@@ -24,7 +29,9 @@ const Booking = () => {
   const currentUser = useAuthUser();
   const cars = useSelector(allCars);
   const message = useSelector(allMessages);
-  const [carId, setCarId] = useState(useSelector(car).id || 0);
+  const status = useSelector(allStatus);
+  const selectedCar = useSelector(car).id;
+  const [carId, setCarId] = useState(0);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isTokenSet = useToken();
@@ -39,6 +46,7 @@ const Booking = () => {
       return_date: handleDateFormat(returnDate),
       car_id: carId,
     };
+
     const reservationObject = {
       reservation,
       userId: currentUser.id,
@@ -54,87 +62,95 @@ const Booking = () => {
     if (!isTokenSet) navigate('/login');
   };
 
+  const handleSelectedCar = () => {
+    if (selectedCar) setCarId(selectedCar);
+  };
+
   useEffect(() => {
+    handleSelectedCar();
     navigateReservation();
     checkAuthUser();
-  }, [message, isTokenSet]);
+  }, [message, isTokenSet, selectedCar]);
 
   document.title = 'ElDorado | Booking';
   return (
-    <Card className="mt-5 mb-64 max-w-sm mx-auto bg-white/90 backdrop-blur-md">
-      <CardHeader
-        variant="gradient"
-        className="mb-4 grid h-28 place-items-center text-white bg-black/50 backdrop-blur-md"
-      >
-        <Typography
-          variant="h3"
-          color="white"
-          className="font-osans uppercase tracking-widest font-light"
-        >
-          Book a Car
-        </Typography>
-      </CardHeader>
-      <CardBody className="text-center">
-        <Typography variant="h5" className="mb-2">
-          Kind Note
-        </Typography>
-        <Typography className="text-left">
-          From Lamborghini to Mercedes, we have it all. El Dorado provides you
-          with the best luxary car rental services worldwide.
-        </Typography>
-      </CardBody>
-      <CardBody className="flex flex-col gap-4 text-red-500">
-        <DatePicker
-          placeholder="Pickup Date"
-          placement="bottomLeft"
-          size="large"
-          format="YYYY/MM/DD"
-          allowClear
-          disabledDate={(current) => current && current < moment().startOf('day')}
-          onChange={(date) => setPickupDate(date)}
-        />
-        <DatePicker
-          placeholder="Return Date"
-          placement="bottomLeft"
-          size="large"
-          format="YYYY/MM/DD"
-          allowClear
-          disabledDate={(current) => current && current < moment().endOf('day')}
-          onChange={(date) => setReturnDate(date)}
-        />
-        <Select
-          color="amber"
-          className=""
-          name="car"
-          value={carId.toString()}
-          label="Select a car"
-          onChange={handleCarId}
-          required
-          animate={{
-            mount: { y: 0 },
-            unmount: { y: 25 },
-          }}
-        >
-          {cars.map(({ id: carId, name }) => (
-            <Option value={carId.toString()} key={carId}>
-              {name}
-            </Option>
-          ))}
-        </Select>
-      </CardBody>
-      <CardFooter className="pt-0">
-        <Button
-          type="button"
-          onClick={handleReserve}
-          color="amber"
+    <>
+      {status === 'failed' && <Alert message={message} />}
+      <Card className="mt-5 mb-64 max-w-sm mx-auto bg-white/90 backdrop-blur-md">
+        <CardHeader
           variant="gradient"
-          fullWidth
-          className="capitalize"
+          className="mb-4 grid h-28 place-items-center text-white bg-black/50 backdrop-blur-md"
         >
-          Reserve Car
-        </Button>
-      </CardFooter>
-    </Card>
+          <Typography
+            variant="h3"
+            color="white"
+            className="font-osans uppercase tracking-widest font-light"
+          >
+            Book a Car
+          </Typography>
+        </CardHeader>
+        <CardBody className="text-center">
+          <Typography variant="h5" className="mb-2">
+            Kind Note
+          </Typography>
+          <Typography className="text-left">
+            From Lamborghini to Mercedes, we have it all. El Dorado provides you
+            with the best luxary car rental services worldwide.
+          </Typography>
+        </CardBody>
+        <CardBody className="flex flex-col gap-4 text-red-500">
+          <DatePicker
+            placeholder="Pickup Date"
+            placement="bottomLeft"
+            size="large"
+            format="YYYY/MM/DD"
+            allowClear
+            disabledDate={(current) => current && current < moment().startOf('day')}
+            onChange={(date) => setPickupDate(date)}
+          />
+          <DatePicker
+            placeholder="Return Date"
+            placement="bottomLeft"
+            size="large"
+            format="YYYY/MM/DD"
+            allowClear
+            disabledDate={(current) => current && current < moment().endOf('day')}
+            onChange={(date) => setReturnDate(date)}
+          />
+          <Select
+            color="amber"
+            className=""
+            name="car"
+            value={selectedCar?.toString()}
+            label="Select a car"
+            onChange={handleCarId}
+            required
+            animate={{
+              mount: { y: 0 },
+              unmount: { y: 25 },
+            }}
+          >
+            {cars.map(({ id: carId, name }) => (
+              <Option value={carId.toString()} key={carId}>
+                {name}
+              </Option>
+            ))}
+          </Select>
+        </CardBody>
+        <CardFooter className="pt-0">
+          <Button
+            type="button"
+            onClick={handleReserve}
+            color="amber"
+            variant="gradient"
+            fullWidth
+            className="capitalize"
+          >
+            Reserve Car
+          </Button>
+        </CardFooter>
+      </Card>
+    </>
   );
 };
 
