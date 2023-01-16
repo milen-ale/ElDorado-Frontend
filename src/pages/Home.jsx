@@ -37,9 +37,7 @@ const Home = () => {
   }, [width, cols]);
 
   return status === 'loading' ? (
-    <div className="flex items-center justify-center h-96 w-[75vw]">
-      <Loader />
-    </div>
+    <Loader />
   ) : (
     <>
       <div>
