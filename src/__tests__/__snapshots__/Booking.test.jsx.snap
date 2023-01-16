@@ -161,6 +161,7 @@ Object {
           </button>
         </div>
       </div>
+      ,
     </div>
   </body>,
   "container": <div>
@@ -320,6 +321,7 @@ Object {
         </button>
       </div>
     </div>
+    ,
   </div>,
   "debug": [Function],
   "findAllByAltText": [Function],
