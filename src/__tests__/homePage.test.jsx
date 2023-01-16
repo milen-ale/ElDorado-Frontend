@@ -9,11 +9,14 @@ import Home from '../pages/Home';
 describe('Home Page', () => {
   test('Should render the proper Home Page', () => {
     const homePage = render(
-      <Provider store={store}>
-        <Router>
-          <Home />
-        </Router>
-      </Provider>,
+      <React.StrictMode>
+        <Provider store={store}>
+          <Router>
+            <Home />
+          </Router>
+        </Provider>
+        ,
+      </React.StrictMode>,
     );
     expect(homePage).toMatchSnapshot();
   });
