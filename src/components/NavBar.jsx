@@ -83,7 +83,7 @@ const NavBar = ({ open, handleOpen }) => {
   };
 
   const handleCarReset = () => {
-    if (pathname !== '/booking') dispatch(resetCarState());
+    if (pathname !== '/booking' || pathname !== '/car-details') dispatch(resetCarState());
   };
 
   const handleAuth = () => {
@@ -103,13 +103,15 @@ const NavBar = ({ open, handleOpen }) => {
 
   useEffect(() => {
     handleAuth();
-    handleCarReset();
     const handleResize = () => setWidth(window.innerWidth);
     window.addEventListener('resize', handleResize);
     hideSidebar();
     return () => window.removeEventListener('resize', handleResize);
-  }, [isTokenSet, width, pathname]);
+  }, [isTokenSet, width]);
 
+  useEffect(() => {
+    handleCarReset()
+  }, [pathname])
   return (
     <div
       className={`${
