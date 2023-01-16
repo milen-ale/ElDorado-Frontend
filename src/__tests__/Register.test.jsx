@@ -4,20 +4,20 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { render } from '@testing-library/react';
 import store from '../redux/configureStore';
 import '@testing-library/jest-dom/';
-import Booking from '../components/Booking';
+import Register from '../components/Register';
 
-describe('Booking component', () => {
-  test('Should render the proper booking component', () => {
-    const booking = render(
+describe('Register component', () => {
+  test('Should render the proper Register component', () => {
+    const register = render(
       <React.StrictMode>
         <Provider store={store}>
           <Router>
-            <Booking />
+            <Register />
           </Router>
         </Provider>
         ,
       </React.StrictMode>,
     );
-    expect(booking).toMatchSnapshot();
+    expect(register).toMatchSnapshot();
   });
 });
