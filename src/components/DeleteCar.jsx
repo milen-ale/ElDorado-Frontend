@@ -52,7 +52,7 @@ const DeleteCar = () => {
     <>
       <CardHeader
         variant="gradient"
-        className="sticky top-0 z-40 mb-4 grid h-28 place-items-center text-white bg-black/50 backdrop-blur-md"
+        className="sticky top-2 z-40 mb-16 grid h-28 place-items-center text-white bg-black/50 backdrop-blur-md"
       >
         <Typography
           variant="h3"

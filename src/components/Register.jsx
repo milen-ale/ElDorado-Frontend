@@ -10,8 +10,10 @@ import {
   Input,
   Button,
 } from '@material-tailwind/react';
-import { Field, Form, Formik } from 'formik';
-import { object, ref, string } from 'yup';
+import {
+  Field, Form, Formik, ErrorMessage,
+} from 'formik';
+import * as Yup from 'yup';
 import {
   authenticatedUser,
   signUp,
@@ -29,6 +31,26 @@ const Register = () => {
     passwordConfirmation: '',
   };
 
+  const SignupSchema = Yup.object().shape({
+    name: Yup.string()
+      .min(2, 'Too Short!')
+      .max(50, 'Too Long!')
+      .matches(
+        /^(?=.{4,50}$)(?![a-z])(?!.*[_.]{2})[a-zA-Z ]+(?<![_.])$/,
+        'Name should have at least 3 characters and should not any number!',
+      )
+      .required('Name is required!'),
+    email: Yup.string().required('Email is required!').email('Invalid Email!'),
+    password: Yup.string()
+      .required('Password is required!')
+      .matches(
+        /^[a-zA-Z0-9!@#$%^&* ]{6,20}$/,
+        'Password must contain at least 6 characters!',
+      ),
+    passwordConfirmation: Yup.string()
+      .oneOf([Yup.ref('password'), null], 'Password not match!')
+      .required('Confirm Password is required!'),
+  });
   const currentUser = useSelector(authenticatedUser);
   const message = useSelector(allMessages);
   const status = useSelector(allStatus);
@@ -66,26 +88,7 @@ const Register = () => {
         <Formik
           initialValues={initialValues}
           onSubmit={handleSignUp}
-          validationSchema={object({
-            name: string()
-              .matches(
-                /^(?=.{3,20}$)(?![a-z])(?!.*[_.]{2})[a-zA-Z ]+(?<![_.])$/,
-                'Name should have at least 3 characters and should not any number!',
-              )
-              .required('Name is required!'),
-            email: string()
-              .required('Email is required!')
-              .email('Invalid Email!'),
-            password: string()
-              .required('Password is required!')
-              .matches(
-                /^[a-zA-Z0-9!@#$%^&* ]{6,20}$/,
-                'Password must contain at least 6 characters!',
-              ),
-            passwordConfirmation: string()
-              .oneOf([ref('password'), null], 'Password not match!')
-              .required('Confirm Password is required!'),
-          })}
+          validationSchema={SignupSchema}
         >
           {({
             errors, touched, dirty, isValid,
@@ -100,9 +103,12 @@ const Register = () => {
                   size="lg"
                   error={Boolean(errors.name) && Boolean(touched.name)}
                 />
-                <span className="text-gray-600 text-xs">
-                  {Boolean(touched.name) && errors.name}
-                </span>
+                <ErrorMessage
+                  name="name"
+                  render={(msg) => (
+                    <span className="text-xs text-gray-500">{msg}</span>
+                  )}
+                />
                 <Field
                   as={Input}
                   color="amber"
@@ -111,9 +117,12 @@ const Register = () => {
                   size="lg"
                   error={Boolean(errors.email) && Boolean(touched.email)}
                 />
-                <span className="text-gray-600 text-xs">
-                  {Boolean(touched.email) && errors.email}
-                </span>
+                <ErrorMessage
+                  name="email"
+                  render={(msg) => (
+                    <span className="text-xs text-gray-500">{msg}</span>
+                  )}
+                />
                 <Field
                   as={Input}
                   color="amber"
@@ -123,9 +132,12 @@ const Register = () => {
                   size="lg"
                   error={Boolean(errors.password) && Boolean(touched.password)}
                 />
-                <span className="text-gray-600 text-xs">
-                  {Boolean(touched.password) && errors.password}
-                </span>
+                <ErrorMessage
+                  name="password"
+                  render={(msg) => (
+                    <span className="text-xs text-gray-500">{msg}</span>
+                  )}
+                />
                 <Field
                   as={Input}
                   color="amber"
@@ -138,10 +150,12 @@ const Register = () => {
                     && Boolean(touched.passwordConfirmation)
                   }
                 />
-                <span className="text-gray-600 text-xs">
-                  {Boolean(touched.passwordConfirmation)
-                    && errors.passwordConfirmation}
-                </span>
+                <ErrorMessage
+                  name="passwordConfirmation"
+                  render={(msg) => (
+                    <span className="text-xs text-gray-500">{msg}</span>
+                  )}
+                />
               </CardBody>
               <CardFooter className="pt-0">
                 <Button
