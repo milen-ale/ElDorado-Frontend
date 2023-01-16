@@ -1,0 +1,482 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home Page Should render the proper Home Page 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="w-72 bg-black/90 relative drop-shadow-xl duration-300 smax:absolute smax:bottom-0 smax:top-0 smax:z-50 false "
+      >
+        <button
+          class="absolute flex justify-center items-center bg-amber-700 p-0 hover:border-black top-9 w-6 h-6 border rounded-full cursor-pointer -right-3 false false"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="w-5 stroke-white"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M15.75 19.5L8.25 12l7.5-7.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+        <div>
+          <img
+            alt="sidebar-white-logo"
+            class="w-full h-full object-cover"
+            src="logo-transparent-white.png"
+          />
+        </div>
+        <ul
+          class="pt-6 flex flex-col justify-center false"
+        >
+          <li
+            class=""
+          >
+            <a
+              aria-current="page"
+              class="bg-amber-600/90 rounded-md flex gap-x-4 text-sm text-white items-center false cursor-pointer p-3 my-2 hover:bg-amber-600/90 hover:text-black hover:rounded-md"
+              href="/"
+            >
+              <svg
+                aria-hidden="true"
+                class="w-7"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <span
+                class="false"
+              >
+                Home
+              </span>
+            </a>
+          </li>
+          <li
+            class=""
+          >
+            <a
+              class="false flex gap-x-4 text-sm text-white items-center false cursor-pointer p-3 my-2 hover:bg-amber-600/90 hover:text-black hover:rounded-md"
+              href="/booking"
+            >
+              <svg
+                aria-hidden="true"
+                class="w-7"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <span
+                class="false"
+              >
+                Booking
+              </span>
+            </a>
+          </li>
+          <li
+            class=""
+          >
+            <a
+              class="false flex gap-x-4 text-sm text-white items-center false cursor-pointer p-3 my-2 hover:bg-amber-600/90 hover:text-black hover:rounded-md"
+              href="/reservation"
+            >
+              <svg
+                aria-hidden="true"
+                class="w-7"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <span
+                class="false"
+              >
+                Reservation
+              </span>
+            </a>
+          </li>
+          <li
+            class=""
+          >
+            <a
+              class="false flex gap-x-4 text-sm text-white items-center false cursor-pointer p-3 my-2 hover:bg-amber-600/90 hover:text-black hover:rounded-md"
+              href="/add_car"
+            >
+              <svg
+                aria-hidden="true"
+                class="w-7"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <span
+                class="false"
+              >
+                Add Car
+              </span>
+            </a>
+          </li>
+          <li
+            class=""
+          >
+            <a
+              class="false flex gap-x-4 text-sm text-white items-center false cursor-pointer p-3 my-2 hover:bg-amber-600/90 hover:text-black hover:rounded-md"
+              href="/delete_car"
+            >
+              <svg
+                aria-hidden="true"
+                class="w-7"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <span
+                class="false"
+              >
+                Delete Car
+              </span>
+            </a>
+          </li>
+          <li>
+            <a
+              class="false group flex gap-x-4 text-sm text-white items-center false cursor-pointer p-3 my-2 hover:bg-amber-600/90 hover:text-black hover:rounded-md false"
+              href="/login"
+            >
+              <svg
+                aria-hidden="true"
+                class="w-7 group-hover:translate-x-0.5 transition duration-300"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <span
+                class="false"
+              >
+                Login
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      ,
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="w-72 bg-black/90 relative drop-shadow-xl duration-300 smax:absolute smax:bottom-0 smax:top-0 smax:z-50 false "
+    >
+      <button
+        class="absolute flex justify-center items-center bg-amber-700 p-0 hover:border-black top-9 w-6 h-6 border rounded-full cursor-pointer -right-3 false false"
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          class="w-5 stroke-white"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M15.75 19.5L8.25 12l7.5-7.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+      <div>
+        <img
+          alt="sidebar-white-logo"
+          class="w-full h-full object-cover"
+          src="logo-transparent-white.png"
+        />
+      </div>
+      <ul
+        class="pt-6 flex flex-col justify-center false"
+      >
+        <li
+          class=""
+        >
+          <a
+            aria-current="page"
+            class="bg-amber-600/90 rounded-md flex gap-x-4 text-sm text-white items-center false cursor-pointer p-3 my-2 hover:bg-amber-600/90 hover:text-black hover:rounded-md"
+            href="/"
+          >
+            <svg
+              aria-hidden="true"
+              class="w-7"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span
+              class="false"
+            >
+              Home
+            </span>
+          </a>
+        </li>
+        <li
+          class=""
+        >
+          <a
+            class="false flex gap-x-4 text-sm text-white items-center false cursor-pointer p-3 my-2 hover:bg-amber-600/90 hover:text-black hover:rounded-md"
+            href="/booking"
+          >
+            <svg
+              aria-hidden="true"
+              class="w-7"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span
+              class="false"
+            >
+              Booking
+            </span>
+          </a>
+        </li>
+        <li
+          class=""
+        >
+          <a
+            class="false flex gap-x-4 text-sm text-white items-center false cursor-pointer p-3 my-2 hover:bg-amber-600/90 hover:text-black hover:rounded-md"
+            href="/reservation"
+          >
+            <svg
+              aria-hidden="true"
+              class="w-7"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span
+              class="false"
+            >
+              Reservation
+            </span>
+          </a>
+        </li>
+        <li
+          class=""
+        >
+          <a
+            class="false flex gap-x-4 text-sm text-white items-center false cursor-pointer p-3 my-2 hover:bg-amber-600/90 hover:text-black hover:rounded-md"
+            href="/add_car"
+          >
+            <svg
+              aria-hidden="true"
+              class="w-7"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span
+              class="false"
+            >
+              Add Car
+            </span>
+          </a>
+        </li>
+        <li
+          class=""
+        >
+          <a
+            class="false flex gap-x-4 text-sm text-white items-center false cursor-pointer p-3 my-2 hover:bg-amber-600/90 hover:text-black hover:rounded-md"
+            href="/delete_car"
+          >
+            <svg
+              aria-hidden="true"
+              class="w-7"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span
+              class="false"
+            >
+              Delete Car
+            </span>
+          </a>
+        </li>
+        <li>
+          <a
+            class="false group flex gap-x-4 text-sm text-white items-center false cursor-pointer p-3 my-2 hover:bg-amber-600/90 hover:text-black hover:rounded-md false"
+            href="/login"
+          >
+            <svg
+              aria-hidden="true"
+              class="w-7 group-hover:translate-x-0.5 transition duration-300"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span
+              class="false"
+            >
+              Login
+            </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    ,
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
