@@ -8,6 +8,7 @@ import {
 import { TrashIcon } from '@heroicons/react/24/outline';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import {
   setMessageEmpty,
   allStatus,
@@ -15,16 +16,17 @@ import {
   getReservations,
   deleteReservation,
 } from '../redux/Reservations/reservationsSlice';
-import { useAuthUser } from '../redux/Auth/useAuthUser';
-import { resetCarState } from '../redux/Home/home';
+import { useAuthUser, useToken } from '../redux/Auth/useAuthUser';
 import Loader from './Loader';
 import ReservationDetail from './ReservationDetail';
 
 const Reservation = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const reservations = useSelector(carReservations);
   const status = useSelector(allStatus);
   const currentUser = useAuthUser();
+  const isTokenSet = useToken();
 
   const handleRemoveReservation = (reservationId) => {
     const removeOptions = {
@@ -35,11 +37,15 @@ const Reservation = () => {
     dispatch(deleteReservation(removeOptions));
   };
 
+  const checkAuthUser = () => {
+    if (!isTokenSet) navigate('/login');
+  };
+
   useEffect(() => {
     dispatch(setMessageEmpty(''));
-    dispatch(resetCarState());
+    checkAuthUser();
     if (reservations.length === 0) dispatch(getReservations());
-  }, [reservations.length]);
+  }, [reservations.length, isTokenSet]);
 
   document.title = `ElDorado | Reservations: ${reservations.length}`;
   return status === 'loading' ? (

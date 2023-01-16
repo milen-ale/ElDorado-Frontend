@@ -13,7 +13,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { addCar, allMessages } from '../redux/Home/home';
-import { useAuthUser } from '../redux/Auth/useAuthUser';
+import { useAuthUser, useToken } from '../redux/Auth/useAuthUser';
 
 const AddCar = () => {
   const defaultImg = 'https://www.fluttercampus.com/img/4by3.webp';
@@ -27,7 +27,9 @@ const AddCar = () => {
   const message = useSelector(allMessages);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const isTokenSet = useToken();
   const currentUser = useAuthUser();
+
   const handleChange = (e) => {
     const {
       target: { name: input, value, checked },
@@ -39,6 +41,7 @@ const AddCar = () => {
     if (input === 'image') setImage(value);
     if (input === 'available') setAvailable(checked);
   };
+
   document.title = 'ElDorado | AddCar';
 
   const handleAddCar = () => {
@@ -53,12 +56,23 @@ const AddCar = () => {
     dispatch(addCar({ ownerId: currentUser.id, car }));
   };
 
-  useEffect(() => {
+  const checkAuthUser = () => {
+    if (!isTokenSet) navigate('/login');
+  };
+
+  const setDefaultImage = () => {
     if (image === '') setImage(defaultImg);
-    if (message === 'Car has been successfully created') {
-      navigate('/delete_car');
-    }
-  }, [image, message]);
+  };
+
+  const navigateDeleteCar = () => {
+    if (message === 'Car has been successfully created') navigate('/delete_car');
+  };
+
+  useEffect(() => {
+    setDefaultImage();
+    navigateDeleteCar();
+    checkAuthUser();
+  }, [image, message, isTokenSet]);
 
   return (
     <Card className="mt-5 mb-64 max-w-[450px] mx-auto bg-white/90 backdrop-blur-md">
