@@ -7,16 +7,30 @@ const Alert = ({ message }) => {
   setTimeout(() => {
     setShow(false);
   }, 5000);
+
+  const filterMessage = (msg) => {
+    const fm = [
+      ...new Set(
+        msg
+          .replace(/Validation failed:/g, '')
+          .replace(/can't be blank/g, 'is required')
+          .split(','),
+      ),
+    ].join(', ');
+    return fm;
+  };
+
   return (
     <>
       <MaterialAlert
+        className="mb-12 p-2 ml-2"
         show={show}
         color="red"
         dismissible={{
           onClose: () => setShow(false),
         }}
       >
-        {message || ''}
+        {filterMessage(message) || ''}
       </MaterialAlert>
     </>
   );
