@@ -1,57 +1,56 @@
-const baseURL = "http://localhost:3000/api/v1";
+const baseURL = 'http://localhost:3000/api/v1';
 
-const setAuthToken = ({ headers }) =>
-  localStorage.setItem("token", headers.get("Authorization"));
+const setAuthToken = ({ headers }) => localStorage.setItem('token', headers.get('Authorization'));
 
-const unsetAuthToken = () => localStorage.removeItem("token");
+const unsetAuthToken = () => localStorage.removeItem('token');
 
 const loginOptions = (user) => ({
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify(user),
 });
 
 const registerOptions = (user) => ({
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify(user),
 });
 
 const carBookingOptions = (booking) => ({
-  method: "POST",
+  method: 'POST',
   headers: {
-    "Content-Type": "application/json",
-    Authorization: localStorage.getItem("token"),
+    'Content-Type': 'application/json',
+    Authorization: localStorage.getItem('token'),
   },
   body: JSON.stringify(booking),
 });
 
 const addCarOptions = (car) => ({
-  method: "POST",
+  method: 'POST',
   headers: {
-    "Content-Type": "application/json",
-    Authorization: localStorage.getItem("token"),
+    'Content-Type': 'application/json',
+    Authorization: localStorage.getItem('token'),
   },
   body: JSON.stringify(car),
 });
 
 const toggleCarAvailabilityOptions = (car) => ({
-  method: "PATCH",
+  method: 'PATCH',
   headers: {
-    "Content-Type": "application/json",
-    Authorization: localStorage.getItem("token"),
+    'Content-Type': 'application/json',
+    Authorization: localStorage.getItem('token'),
   },
   body: JSON.stringify(car),
 });
 
 const removeReservationOptions = () => ({
-  method: "DELETE",
-  headers: { Authorization: localStorage.getItem("token") },
+  method: 'DELETE',
+  headers: { Authorization: localStorage.getItem('token') },
 });
 
 const logoutOptions = () => ({
-  method: "DELETE",
-  headers: { Authorization: localStorage.getItem("token") },
+  method: 'DELETE',
+  headers: { Authorization: localStorage.getItem('token') },
 });
 
 const api = {
@@ -79,7 +78,7 @@ const api = {
       const { data, message } = await response.json();
       return {
         user: data,
-        status: "succeeded",
+        status: 'succeeded',
         message,
       };
     }
@@ -87,9 +86,9 @@ const api = {
     if (code === 401) {
       return {
         user: {},
-        status: "unauthorized",
-        error: "Unauthorized, You must Login or Register",
-        message: "Login failed, Please check your email and password",
+        status: 'unauthorized',
+        error: 'Unauthorized, You must Login or Register',
+        message: 'Login failed, Please check your email and password',
       };
     }
 
@@ -107,7 +106,7 @@ const api = {
       const data = await response.json();
       return {
         user: {},
-        status: "succeeded",
+        status: 'succeeded',
         message: data.message,
       };
     }
@@ -115,16 +114,16 @@ const api = {
       unsetAuthToken();
       return {
         user: {},
-        status: "expired",
-        error: "Unauthorized, You must Login or Register",
-        message: "Session for User has expired",
+        status: 'expired',
+        error: 'Unauthorized, You must Login or Register',
+        message: 'Session for User has expired',
       };
     }
     return null;
   },
   fetchAuthUser: async () => {
     const response = await fetch(`${baseURL}/users`, {
-      headers: { Authorization: localStorage.getItem("token") },
+      headers: { Authorization: localStorage.getItem('token') },
     });
 
     const { status: code } = response;
@@ -133,18 +132,18 @@ const api = {
       unsetAuthToken();
       return {
         user: {},
-        status: "expired",
-        error: "Unauthorized, You must Login or Register",
-        message: "Session for User has expired",
+        status: 'expired',
+        error: 'Unauthorized, You must Login or Register',
+        message: 'Session for User has expired',
       };
     }
     if (code === 200) {
       const currentUser = await response.json();
       return {
         user: currentUser,
-        status: "succeeded",
+        status: 'succeeded',
         error: null,
-        message: "User is authenticated",
+        message: 'User is authenticated',
       };
     }
     return null;
@@ -169,7 +168,7 @@ const api = {
   },
   fetchReservations: async (id) => {
     const response = await fetch(`${baseURL}/users/${id}/reservations`, {
-      headers: { Authorization: localStorage.getItem("token") },
+      headers: { Authorization: localStorage.getItem('token') },
     });
     const reservations = await response.json();
     return reservations;
@@ -179,14 +178,14 @@ const api = {
       `${baseURL}/users/${userId}/reservations/${reservationId}`,
       {
         ...removeReservationOptions(),
-      }
+      },
     );
     const data = await response.json();
     return data;
   },
   fetchOwnerCars: async (ownerId) => {
     const response = await fetch(`${baseURL}/owners/${ownerId}/cars`, {
-      headers: { Authorization: localStorage.getItem("token") },
+      headers: { Authorization: localStorage.getItem('token') },
     });
     const cars = await response.json();
     return cars;
@@ -197,11 +196,11 @@ const api = {
     });
     const data = await response.json();
     const { status: code } = response;
-    if (code == 422) {
+    if (code === 422) {
       return {
-        status: "failed",
+        status: 'failed',
         data: car,
-        message: data.message
+        message: data.message,
       };
     }
 
@@ -212,7 +211,7 @@ const api = {
       `${baseURL}/users/${ownerId}/cars/${carId}/availability`,
       {
         ...toggleCarAvailabilityOptions({ car }),
-      }
+      },
     );
 
     const data = await response.json();

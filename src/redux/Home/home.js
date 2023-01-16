@@ -1,17 +1,17 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import api from "../../api/api";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import api from '../../api/api';
 
-const SHOW_CARS = "SHOW_CARS";
-const SHOW_CAR = "SHOW_CAR";
-const GET_OWNER_CARS = "GET_OWNER_CARS";
-const ADD_CAR = "ADD_CAR";
-const TOGGLE_CAR_AVAILABILITY = "TOGGLE_CAR_AVAILABILITY";
+const SHOW_CARS = 'SHOW_CARS';
+const SHOW_CAR = 'SHOW_CAR';
+const GET_OWNER_CARS = 'GET_OWNER_CARS';
+const ADD_CAR = 'ADD_CAR';
+const TOGGLE_CAR_AVAILABILITY = 'TOGGLE_CAR_AVAILABILITY';
 
 const initialState = {
   cars: [],
   car: {},
   ownerCars: [],
-  status: "idle", // 'idle' | 'loading' | 'succeeded' | 'failed'
+  status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
   error: null,
 };
 
@@ -47,7 +47,7 @@ export const getOwnerCars = createAsyncThunk(
     } catch (error) {
       return error.message;
     }
-  }
+  },
 );
 
 export const toggleAvailability = createAsyncThunk(
@@ -58,19 +58,19 @@ export const toggleAvailability = createAsyncThunk(
     } catch (error) {
       return error.message;
     }
-  }
+  },
 );
 
 // Reducer
 const carsSlice = createSlice({
-  name: "cars",
+  name: 'cars',
   initialState,
   reducers: {
     resetCarState: (state) => ({
       ...state,
       car: {},
-      status: "idle",
-      message: "",
+      status: 'idle',
+      message: '',
       error: null,
     }),
     setMessageEmpty: (state, action) => ({
@@ -82,35 +82,35 @@ const carsSlice = createSlice({
     builder
       .addCase(getCars.pending, (state) => ({
         ...state,
-        status: "loading",
+        status: 'loading',
       }))
       .addCase(getCars.fulfilled, (state, action) => ({
         ...state,
         cars: action.payload,
-        status: "succeeded",
+        status: 'succeeded',
       }))
       .addCase(getCars.rejected, (state, action) => ({
         ...state,
-        status: "failed",
+        status: 'failed',
         error: action.error.message,
       }))
       .addCase(getCar.pending, (state) => ({
         ...state,
-        status: "loading",
+        status: 'loading',
       }))
       .addCase(getCar.fulfilled, (state, action) => ({
         ...state,
         car: action.payload,
-        status: "succeeded",
+        status: 'succeeded',
       }))
       .addCase(getCar.rejected, (state, action) => ({
         ...state,
-        status: "failed",
+        status: 'failed',
         error: action.error.message,
       }))
       .addCase(addCar.pending, (state) => ({
         ...state,
-        status: "loading",
+        status: 'loading',
       }))
       .addCase(addCar.fulfilled, (state, action) => ({
         ...state,
@@ -125,16 +125,16 @@ const carsSlice = createSlice({
           ...state.ownerCars,
         ],
         message: action.payload.message,
-        status: action.payload.status === 200 ? "succeeded" : "failed",
+        status: action.payload.status === 200 ? 'succeeded' : 'failed',
       }))
       .addCase(addCar.rejected, (state, action) => ({
         ...state,
-        status: "failed",
+        status: 'failed',
         error: action.error.message,
       }))
       .addCase(toggleAvailability.pending, (state) => ({
         ...state,
-        status: "loading",
+        status: 'loading',
       }))
       .addCase(toggleAvailability.fulfilled, (state, action) => ({
         ...state,
@@ -147,25 +147,25 @@ const carsSlice = createSlice({
           ...state.ownerCars.filter(({ id }) => id !== action.payload.data.id),
         ],
         message: action.payload.message,
-        status: "succeeded",
+        status: 'succeeded',
       }))
       .addCase(toggleAvailability.rejected, (state, action) => ({
         ...state,
-        status: "failed",
+        status: 'failed',
         error: action.error.message,
       }))
       .addCase(getOwnerCars.pending, (state) => ({
         ...state,
-        status: "loading",
+        status: 'loading',
       }))
       .addCase(getOwnerCars.fulfilled, (state, action) => ({
         ...state,
         ownerCars: action.payload,
-        status: "succeeded",
+        status: 'succeeded',
       }))
       .addCase(getOwnerCars.rejected, (state, action) => ({
         ...state,
-        status: "failed",
+        status: 'failed',
         error: action.error.message,
       }));
   },

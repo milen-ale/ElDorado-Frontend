@@ -110,8 +110,8 @@ const NavBar = ({ open, handleOpen }) => {
   }, [isTokenSet, width]);
 
   useEffect(() => {
-    handleCarReset()
-  }, [pathname])
+    handleCarReset();
+  }, [pathname]);
   return (
     <div
       className={`${
