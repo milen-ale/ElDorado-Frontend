@@ -46,6 +46,7 @@ const Booking = () => {
       return_date: handleDateFormat(returnDate),
       car_id: carId,
     };
+
     const reservationObject = {
       reservation,
       userId: currentUser.id,
@@ -61,10 +62,15 @@ const Booking = () => {
     if (!isTokenSet) navigate('/login');
   };
 
+  const handleSelectedCar = () => {
+    if (selectedCar) setCarId(selectedCar);
+  };
+
   useEffect(() => {
+    handleSelectedCar();
     navigateReservation();
     checkAuthUser();
-  }, [message, isTokenSet]);
+  }, [message, isTokenSet, selectedCar]);
 
   document.title = 'ElDorado | Booking';
   return (
