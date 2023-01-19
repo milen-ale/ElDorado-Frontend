@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet, Navigate } from 'react-router-dom';
-import { useToken } from '../redux/Auth/useAuthUser';
+import useToken from '../redux/Auth/useToken';
 
 const ProtectedRoute = () => {
   const isTokenSet = useToken();
