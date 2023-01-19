@@ -12,17 +12,17 @@ import {
   ownerCars,
   allStatus,
   toggleAvailability,
-  getOwnerCars,
   setMessageEmpty,
 } from '../redux/Home/home';
-import { useAuthUser, useToken } from '../redux/Auth/useAuthUser';
+import useToken from '../redux/Auth/useToken';
 import Loader from './Loader';
 import Switch from './Switch';
+import { authenticatedUser } from '../redux/Auth/authSlice';
 
 const DeleteCar = () => {
   const userCars = useSelector(ownerCars);
   const status = useSelector(allStatus);
-  const currentUser = useAuthUser();
+  const currentUser = useSelector(authenticatedUser);
   const isTokenSet = useToken();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -34,7 +34,7 @@ const DeleteCar = () => {
 
     setTimeout(() => {
       dispatch(toggleAvailability({ ownerId: currentUser.id, carId, car }));
-    }, 1900);
+    }, 1000);
   };
 
   document.title = 'ElDorado | DeleteCar';
@@ -45,10 +45,11 @@ const DeleteCar = () => {
 
   useEffect(() => {
     dispatch(setMessageEmpty());
-    if (userCars.length === 0) dispatch(getOwnerCars(currentUser.id));
     checkAuthUser();
-  }, [userCars.length, isTokenSet]);
-  return (
+  }, [isTokenSet]);
+  return status === 'loading' ? (
+    <Loader />
+  ) : (
     <>
       <CardHeader
         variant="gradient"
@@ -62,10 +63,14 @@ const DeleteCar = () => {
           Delete a Car
         </Typography>
       </CardHeader>
-      {status === 'loading' ? (
-        <div className="flex items-center justify-center h-96 w-[75vw]">
-          <Loader />
-        </div>
+      {userCars.length === 0 ? (
+        <Card className="max-w-sm mt-48 mx-auto h-32">
+          <CardBody className="text-center font-bold my-auto text-2xl">
+            {' '}
+            No Cars Owned
+            {' '}
+          </CardBody>
+        </Card>
       ) : (
         <div className="Car-Grid grid gap-6">
           {userCars.map(
