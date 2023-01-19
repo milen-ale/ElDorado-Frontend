@@ -19,14 +19,15 @@ import {
   bookCar,
   allStatus,
 } from '../redux/Reservations/reservationsSlice';
-import { useAuthUser, useToken } from '../redux/Auth/useAuthUser';
+import useToken from '../redux/Auth/useToken';
 import { allCars, car } from '../redux/Home/home';
 import Alert from './Alert';
+import { authenticatedUser } from '../redux/Auth/authSlice';
 
 const Booking = () => {
   const [pickupDate, setPickupDate] = useState(null);
   const [returnDate, setReturnDate] = useState(null);
-  const currentUser = useAuthUser();
+  const currentUser = useSelector(authenticatedUser);
   const cars = useSelector(allCars);
   const message = useSelector(allMessages);
   const status = useSelector(allStatus);
@@ -42,8 +43,8 @@ const Booking = () => {
 
   const handleReserve = () => {
     const reservation = {
-      pickup_date: handleDateFormat(pickupDate),
-      return_date: handleDateFormat(returnDate),
+      pickup_date: pickupDate,
+      return_date: returnDate,
       car_id: carId,
     };
 
@@ -106,7 +107,7 @@ const Booking = () => {
             format="YYYY/MM/DD"
             allowClear
             disabledDate={(current) => current && current < moment().startOf('day')}
-            onChange={(date) => setPickupDate(date)}
+            onChange={(date) => setPickupDate(handleDateFormat(date))}
           />
           <DatePicker
             placeholder="Return Date"
@@ -115,7 +116,7 @@ const Booking = () => {
             format="YYYY/MM/DD"
             allowClear
             disabledDate={(current) => current && current < moment().endOf('day')}
-            onChange={(date) => setReturnDate(date)}
+            onChange={(date) => setReturnDate(handleDateFormat(date))}
           />
           <Select
             color="amber"
