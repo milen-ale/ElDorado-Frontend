@@ -17,8 +17,9 @@ import {
 } from 'formik';
 import * as Yup from 'yup';
 import { addCar, allMessages, allStatus } from '../redux/Home/home';
-import { useAuthUser, useToken } from '../redux/Auth/useAuthUser';
+import useToken from '../redux/Auth/useToken';
 import Alert from './Alert';
+import { authenticatedUser } from '../redux/Auth/authSlice';
 
 const AddCar = () => {
   const defaultImg = 'https://www.fluttercampus.com/img/4by3.webp';
@@ -28,14 +29,14 @@ const AddCar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isTokenSet = useToken();
-  const currentUser = useAuthUser();
+  const currentUser = useSelector(authenticatedUser);
 
   const initialValues = {
     name: '',
     description: '',
     daily_price: '',
     model: '',
-    image: '',
+    image: defaultImg,
     available: true,
   };
 
@@ -65,7 +66,7 @@ const AddCar = () => {
       .required('Image is required!')
       .matches(
         /\.(gif|jpe?g|tiff?|png|webp|bmp)$/i,
-        'Should end with gif|jpeg|tiff|png|webp|bmp|jpg',
+        'Should end with gif | jpeg | tiff | png | webp | bmp | jpg',
       ),
   });
 
@@ -79,19 +80,14 @@ const AddCar = () => {
     if (!isTokenSet) navigate('/login');
   };
 
-  const setDefaultImage = () => {
-    if (initialValues.image === '') initialValues.image = defaultImg;
-  };
-
   const navigateDeleteCar = () => {
     if (message === 'Car has been successfully created') navigate('/delete_car');
   };
 
   useEffect(() => {
-    setDefaultImage();
     navigateDeleteCar();
     checkAuthUser();
-  }, [initialValues.image, message, isTokenSet]);
+  }, [message, isTokenSet]);
 
   return (
     <>
