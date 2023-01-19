@@ -13,6 +13,7 @@ module.exports = withMT({
       screens: {
         smax: { max: '767px' },
         sl: { max: '500px' },
+        tablet: { min: '768px', max: '820px',  },
       },
     },
   },
