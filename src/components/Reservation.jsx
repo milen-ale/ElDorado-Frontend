@@ -11,21 +11,23 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {
   setMessageEmpty,
+  allMessages,
   allStatus,
   carReservations,
-  getReservations,
   deleteReservation,
 } from '../redux/Reservations/reservationsSlice';
-import { useAuthUser, useToken } from '../redux/Auth/useAuthUser';
+import useToken from '../redux/Auth/useToken';
+import { authenticatedUser } from '../redux/Auth/authSlice';
 import Loader from './Loader';
 import ReservationDetail from './ReservationDetail';
 
 const Reservation = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const message = useSelector(allMessages);
   const reservations = useSelector(carReservations);
   const status = useSelector(allStatus);
-  const currentUser = useAuthUser();
+  const currentUser = useSelector(authenticatedUser); // useAuthUser();
   const isTokenSet = useToken();
 
   const handleRemoveReservation = (reservationId) => {
@@ -41,11 +43,14 @@ const Reservation = () => {
     if (!isTokenSet) navigate('/login');
   };
 
+  const handleResevationMessage = () => {
+    if (message === 'Car has been successfully booked') dispatch(setMessageEmpty(''));
+  };
+
   useEffect(() => {
-    dispatch(setMessageEmpty(''));
     checkAuthUser();
-    if (reservations.length === 0) dispatch(getReservations());
-  }, [reservations.length, isTokenSet]);
+    handleResevationMessage();
+  }, [message, isTokenSet]);
 
   document.title = `ElDorado | Reservations: ${reservations.length}`;
   return status === 'loading' ? (
@@ -75,7 +80,11 @@ const Reservation = () => {
             pickup_date: pickupDate,
             return_date: returnDate,
             car: {
-              name: carName, model, image, daily_price: dailyPrice, available,
+              name: carName,
+              model,
+              image,
+              daily_price: dailyPrice,
+              available,
             },
           }) => (
             <Card key={reservationId} className="max-w-sm">
