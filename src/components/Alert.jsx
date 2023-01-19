@@ -1,12 +1,35 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Alert as MaterialAlert } from '@material-tailwind/react';
+import { useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setStatusIdle as setReservationStatus } from '../redux/Reservations/reservationsSlice';
+import { setStatusIdle as setAuthStatus } from '../redux/Auth/authSlice';
+import { setStatusIdle as setHomeStatus } from '../redux/Home/home';
 
 const Alert = ({ message }) => {
   const [show, setShow] = useState(true);
+  const dispatch = useDispatch();
+  const { pathname } = useLocation();
+
+  const setReservationStatusIdle = () => {
+    if (pathname === '/booking') dispatch(setReservationStatus());
+  };
+
+  const setAuthStatusIdle = () => {
+    if (pathname === '/login') dispatch(setAuthStatus());
+  };
+
+  const setCarStatusIdle = () => {
+    if (pathname === '/add_car') dispatch(setHomeStatus());
+  };
+
   setTimeout(() => {
     setShow(false);
-  }, 6000);
+    setReservationStatusIdle();
+    setAuthStatusIdle();
+    setCarStatusIdle();
+  }, 5000);
 
   const filterMessage = (msg) => {
     const fm = [
@@ -27,7 +50,12 @@ const Alert = ({ message }) => {
         show={show}
         color="red"
         dismissible={{
-          onClose: () => setShow(false),
+          onClose: () => {
+            setReservationStatusIdle();
+            setAuthStatusIdle();
+            setCarStatusIdle();
+            setShow(false);
+          },
         }}
       >
         {filterMessage(message) || ''}
