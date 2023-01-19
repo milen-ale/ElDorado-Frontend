@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useNavigate, NavLink } from 'react-router-dom';
+import { useNavigate, NavLink, useLocation } from 'react-router-dom';
 import {
   ChevronLeftIcon,
   HomeIcon,
@@ -12,8 +12,13 @@ import {
   UserIcon,
 } from '@heroicons/react/24/outline';
 import { useDispatch, useSelector } from 'react-redux';
-import { useToken, useAuthUser } from '../redux/Auth/useAuthUser';
-import { signOut, allStatus } from '../redux/Auth/authSlice';
+import useToken from '../redux/Auth/useToken';
+import {
+  signOut,
+  allStatus,
+  authenticatedUser,
+  getAuthenticatedUser,
+} from '../redux/Auth/authSlice';
 import {
   getReservations,
   resetReservationState,
@@ -27,10 +32,11 @@ const NavBar = ({ open, handleOpen }) => {
   const [hide, setHide] = useState(false);
   const [width, setWidth] = useState(window.innerWidth);
   const [authenticated, setAuthenticated] = useState(false);
-  const currentUser = useAuthUser();
+  const { id, name: userName } = useSelector(authenticatedUser);
   const dispatch = useDispatch();
   const status = useSelector(allStatus);
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const isTokenSet = useToken();
   const menu = [
@@ -84,8 +90,9 @@ const NavBar = ({ open, handleOpen }) => {
   const handleAuth = () => {
     if (isTokenSet) {
       setAuthenticated(true);
-      dispatch(getReservations());
-      dispatch(getOwnerCars(currentUser.id));
+      dispatch(getAuthenticatedUser());
+      dispatch(getReservations(id));
+      dispatch(getOwnerCars(id));
     } else setAuthenticated(false);
   };
 
@@ -97,13 +104,21 @@ const NavBar = ({ open, handleOpen }) => {
   };
 
   useEffect(() => {
-    handleAuth();
     const handleResize = () => setWidth(window.innerWidth);
     window.addEventListener('resize', handleResize);
     hideSidebar();
     return () => window.removeEventListener('resize', handleResize);
-  }, [isTokenSet, width]);
+  }, [width]);
 
+  useEffect(() => {
+    handleAuth();
+  }, [isTokenSet]);
+
+  useEffect(() => {
+    if (pathname !== '/booking') {
+      dispatch(resetCarState());
+    }
+  }, [pathname]);
   return (
     <div
       className={`${
@@ -148,7 +163,7 @@ const NavBar = ({ open, handleOpen }) => {
           >
             <UserIcon className="w-7" />
             <span className={`${!open && 'hidden'} text-black`}>
-              {status === 'loading' ? <Dots /> : currentUser.name}
+              {status === 'loading' ? <Dots /> : userName}
             </span>
           </span>
         )}
