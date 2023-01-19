@@ -60,6 +60,11 @@ const reservationsSlice = createSlice({
       ...state,
       message: action.payload,
     }),
+    setStatusIdle: (state) => ({
+      ...state,
+      status: 'idle',
+      message: '',
+    }),
   },
   extraReducers: (builder) => {
     builder
@@ -120,7 +125,7 @@ const reservationsSlice = createSlice({
 });
 
 export const carReservations = (state) => state.reservations.reservations;
-export const { resetReservationState, setMessageEmpty } = reservationsSlice.actions;
+export const { resetReservationState, setMessageEmpty, setStatusIdle } = reservationsSlice.actions;
 export const allStatus = (state) => state.reservations.status;
 export const allMessages = (state) => state.reservations.message;
 
