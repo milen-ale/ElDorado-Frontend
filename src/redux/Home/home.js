@@ -77,6 +77,11 @@ const carsSlice = createSlice({
       ...state,
       message: action.payload,
     }),
+    setStatusIdle: (state) => ({
+      ...state,
+      status: 'idle',
+      message: '',
+    }),
   },
   extraReducers: (builder) => {
     builder
@@ -171,7 +176,7 @@ const carsSlice = createSlice({
   },
 });
 
-export const { resetCarState, setMessageEmpty } = carsSlice.actions;
+export const { resetCarState, setMessageEmpty, setStatusIdle } = carsSlice.actions;
 export const allCars = (state) => state.cars.cars;
 export const allStatus = (state) => state.cars.status;
 export const allMessages = (state) => state.cars.message;
