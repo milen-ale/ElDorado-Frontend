@@ -10,19 +10,12 @@ import {
   Input,
   Button,
 } from '@material-tailwind/react';
-import {
-  authenticatedUser,
-  signIn,
-  allStatus,
-  allMessages,
-} from '../redux/Auth/authSlice';
-import { useToken } from '../redux/Auth/useAuthUser';
+import { signIn, allStatus, allMessages } from '../redux/Auth/authSlice';
+import useToken from '../redux/Auth/useToken';
 import Alert from './Alert';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const currentUser = useSelector(authenticatedUser);
+  const [user, setUser] = useState({});
   const status = useSelector(allStatus);
   const message = useSelector(allMessages);
 
@@ -34,21 +27,14 @@ const Login = () => {
     const {
       target: { name: input, value },
     } = e;
-    if (input === 'email') setEmail(value);
-    if (input === 'password') setPassword(value);
+    setUser({ ...user, [input]: value });
   };
 
-  const handleSignIn = () => {
-    const user = {
-      email,
-      password,
-    };
-    dispatch(signIn(user));
-  };
+  const handleSignIn = () => dispatch(signIn(user));
 
   useEffect(() => {
     if (isTokenSet) navigate('/');
-  }, [isTokenSet, currentUser]);
+  }, [isTokenSet]);
 
   document.title = 'ElDorado | Login';
   return (

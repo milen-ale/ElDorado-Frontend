@@ -15,12 +15,11 @@ import {
 } from 'formik';
 import * as Yup from 'yup';
 import {
-  authenticatedUser,
   signUp,
   allMessages,
   allStatus,
 } from '../redux/Auth/authSlice';
-import { useToken } from '../redux/Auth/useAuthUser';
+import useToken from '../redux/Auth/useToken';
 import Alert from './Alert';
 
 const Register = () => {
@@ -37,7 +36,7 @@ const Register = () => {
       .max(50, 'Too Long!')
       .matches(
         /^(?=.{4,50}$)(?![a-z])(?!.*[_.]{2})[a-zA-Z ]+(?<![_.])$/,
-        'Name should have at least 3 characters and should not any number!',
+        'Name should have at least 4 characters and should not any number!',
       )
       .required('Name is required!'),
     email: Yup.string().required('Email is required!').email('Invalid Email!'),
@@ -51,7 +50,6 @@ const Register = () => {
       .oneOf([Yup.ref('password'), null], 'Password not match!')
       .required('Confirm Password is required!'),
   });
-  const currentUser = useSelector(authenticatedUser);
   const message = useSelector(allMessages);
   const status = useSelector(allStatus);
   const dispatch = useDispatch();
@@ -65,7 +63,7 @@ const Register = () => {
 
   useEffect(() => {
     if (isTokenSet) navigate('/');
-  }, [isTokenSet, currentUser]);
+  }, [isTokenSet]);
 
   document.title = 'ElDorado | Register';
   return (
